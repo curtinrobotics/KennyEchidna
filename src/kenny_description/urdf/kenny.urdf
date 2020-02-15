@@ -26,6 +26,23 @@
 
     <xacro:property name="reel_rad" value="0.15" />
     <xacro:property name="reel_length" value="0.1" />
+    <xacro:property name="reel_base_offset" value="0.1" />
+
+    <xacro:property name="link1_length" value="0.8"/>
+    <xacro:property name="link1_width" value="0.3"/>
+    <xacro:property name="link1_depth" value="0.2"/>
+
+    <xacro:property name="link2_length" value="0.5"/>
+    <xacro:property name="link2_width" value="0.3"/>
+    <xacro:property name="link2_depth" value="0.2"/>
+    <xacro:property name="link2_default_rotation" value="1"/>
+
+
+    <xacro:property name="link3_length" value="0.5"/>
+    <xacro:property name="link3_width" value="0.1"/>
+    <xacro:property name="link3_depth" value="0.1"/>
+    
+
     <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
 
     <link name="base_link">
@@ -63,7 +80,37 @@
             <geometry>
                 <cylinder length="${reel_length}" radius="${reel_rad}"/>
             </geometry>
-            <origin xyz="0.1 0 ${base_depth+reel_length/2}" />
+            <origin xyz="${reel_base_offset} 0 ${base_depth+reel_length/2}" />
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <link name="arm_link1">
+        <visual>
+            <geometry>
+                <box size="${link1_length} ${link1_width} ${link1_depth}"/>
+            </geometry>
+            <origin xyz="${reel_base_offset/2} 0 ${base_depth+reel_length+link1_depth/2}" rpy="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <link name="arm_link2">
+        <visual>
+            <geometry>
+                <box size="${link2_depth} ${link2_width} ${link2_length}"/>
+            </geometry>
+            <origin xyz="${reel_base_offset/2+link1_length/2-link2_depth/2} 0 ${base_depth+reel_length+link1_length/2}" rpy="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <link name="arm_link3">
+        <visual>
+            <geometry>
+                <box size="${link3_length} ${link3_width} ${link3_depth}"/>
+            </geometry>
+            <origin xyz="${reel_base_offset/2+link1_length/2-link2_depth/2+link3_length/2} 0 ${base_depth+reel_length+link1_depth/2+link2_length}" rpy="0 0 0"/>
             <material name="yellow"/>
         </visual>
     </link>
@@ -81,11 +128,28 @@
         <child link="wheel_left"/>
     </joint>
     
-    <joint name="base_to_reel" type="continuous">
+    <joint name="base_to_reel" type="fixed">
         <parent link="base_link"/>
         <child link="reel"/>
-        <axis xyz="0 0 1"/>
+        <!-- <axis xyz="0 0 1"/>
+        <origin xyz="${reel_base_offset} 0 ${base_depth+reel_length/2}" rpy="0 0 0" /> -->
     </joint>
 
+    <joint name="reel_to_link1" type="fixed">
+        <parent link="reel"/>
+        <child link="arm_link1"/>
+    </joint>
+
+    <joint name="link1_to_link2" type="fixed">
+        <parent link="arm_link1"/>
+        <child link="arm_link2"/>
+        <!-- <axis xyz="1 0 0"/> -->
+    </joint>
+
+    <joint name="link2_to_link3" type="fixed">
+        <parent link="arm_link2"/>
+        <child link="arm_link3"/>
+        <!-- <axis xyz="1 0 0"/> -->
+    </joint>
 
 </robot>
