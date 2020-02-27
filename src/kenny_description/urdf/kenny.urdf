@@ -41,6 +41,15 @@
     <xacro:property name="link3_length" value="0.5"/>
     <xacro:property name="link3_width" value="0.1"/>
     <xacro:property name="link3_depth" value="0.1"/>
+
+    <xacro:property name="camera_pan_rad" value="0.05"/>
+    <xacro:property name="camera_pan_length" value="0.05"/>
+    <xacro:property name="pan_arm_offset" value="0.1"/>
+
+    <xacro:property name="camera_tilt_length" value="0.05"/>
+    <xacro:property name="camera_tilt_width" value="0.05"/>
+    <xacro:property name="camera_tilt_depth" value="0.05"/>
+
     
 
     <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
@@ -198,5 +207,51 @@
         <origin xyz="0 0 ${link2_length}" rpy="0 0.84 0"/>
         <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
     </joint>
+
+
+    <link name="camera_pan">
+        <visual>
+            <geometry>
+                <cylinder length="${camera_pan_length}" radius="${camera_pan_rad}"/> 
+            </geometry>
+            <origin xyz="0 0 ${camera_pan_length/2}" rpy="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${camera_pan_length}" radius="${camera_pan_rad}"/> 
+            </geometry>
+        </collision>
+    </link>
+    <joint name="camera_pan_to_arm1" type="revolute">
+        <parent link="arm_link1"/>
+        <child link="camera_pan"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/>
+        <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
+    </joint>
+
+    <link name="camera_tilt">
+        <visual>
+            <geometry>
+                <box size="${camera_tilt_length} ${camera_tilt_width} ${camera_tilt_depth}"/>
+            </geometry>
+            <origin xyz="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${camera_tilt_length} ${camera_tilt_width} ${camera_tilt_depth}"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="camera_tilt_to_pan" type="revolute">
+        <!-- <parent name="camera_pan"/>
+        <child name="camera_tilt"/> -->
+        <axis xyz="0 1 0"/>
+        <origin xyz="0 0 ${camera_pan_length/2+camera_tilt_length}" rpy="0 0 0"/>
+        <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
+    </joint>
+
 
 </robot>
