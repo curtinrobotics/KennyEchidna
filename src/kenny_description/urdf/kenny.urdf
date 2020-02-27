@@ -16,9 +16,9 @@
 
     <xacro:property name="base_length" value="1" />
     <xacro:property name="base_width" value="0.4" />
-    <xacro:property name="base_depth" value="0.4" />
+    <xacro:property name="base_depth" value="0.3" />
 
-    <xacro:property name="off_floor" value="${base_depth/2}" />
+    <xacro:property name="off_floor" value="${0.2}" />
 
     <xacro:property name="wheel_length" value="0.8" />
     <xacro:property name="wheel_width" value="0.1" />
@@ -32,10 +32,10 @@
     <xacro:property name="link1_width" value="0.3"/>
     <xacro:property name="link1_depth" value="0.2"/>
 
-    <xacro:property name="link2_length" value="0.5"/>
+    <xacro:property name="link2_length" value="0.6"/>
     <xacro:property name="link2_width" value="0.3"/>
     <xacro:property name="link2_depth" value="0.2"/>
-    <xacro:property name="link2_default_rotation" value="1"/>
+    <xacro:property name="link2_default_rotation" value="-0.65"/>
 
 
     <xacro:property name="link3_length" value="0.5"/>
@@ -57,6 +57,7 @@
             <geometry>
                 <box size="${base_length} ${base_width} ${base_depth}"/>
             </geometry>
+            <origin xyz="0 0 ${off_floor}" />
         </collision>
     </link>
 
@@ -72,6 +73,7 @@
             <geometry>
                 <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
             </geometry>
+            <!-- <origin xyz="0 0 0"/> -->
         </collision>
     </link>
     <joint name="base_to_wheel_left" type="fixed">
@@ -93,6 +95,7 @@
             <geometry>
                 <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
             </geometry>
+            <!-- <origin xyz="0 0 0"/> -->
         </collision>
     </link>
     <joint name="base_to_wheel_right" type="fixed">
@@ -114,6 +117,7 @@
             <geometry>
                 <cylinder length="${reel_length}" radius="${reel_rad}"/>
             </geometry>
+            <!-- <origin xyz="0 0 0"/> -->
         </collision>
     </link>
     <joint name="base_to_reel" type="continuous">
@@ -144,7 +148,7 @@
     <joint name="reel_to_link1" type="fixed">
         <parent link="reel"/>
         <child link="arm_link1"/>
-        <origin xyz="${reel_base_offset/2} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
+        <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
     </joint>
 
 
@@ -160,15 +164,16 @@
             <geometry>
                 <box size="${link2_depth} ${link2_width} ${link2_length}"/>
             </geometry>
+            <origin xyz="0 0 ${link2_length/2}" rpy="0 0 0"/>
         </collision>
     </link>
-    <joint name="link1_to_link2" type="continuous">
-    <!-- <joint name="link1_to_link2" type="fixed"> -->
+    <joint name="link1_to_link2" type="revolute">
         <parent link="arm_link1"/>
         <child link="arm_link2"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="${link1_length/2-link2_depth/2} 0 0" rpy="0 0 0"/>
-        <!-- <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="0.5"/> -->
+        <origin xyz="${link1_length/2} 0 0" rpy="0 ${link2_default_rotation} 0"/>
+        <!-- <origin xyz="${link1_length/2-link2_depth/2} 0 0" rpy="0 0 0"/> -->
+        <limit effort="1000.0" lower="0" upper="1.65" velocity="0.5"/>
     </joint>
 
     <link name="arm_link3">
@@ -183,14 +188,15 @@
             <geometry>
                 <box size="${link3_length} ${link3_width} ${link3_depth}"/>
             </geometry>
+            <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
         </collision>
     </link>
-    <joint name="link2_to_link3" type="continuous">
+    <joint name="link2_to_link3" type="revolute">
         <parent link="arm_link2"/>
         <child link="arm_link3"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="0 0 ${link2_length}" rpy="0 0 0"/>
-        <!-- <limit effort="1000.0" lower="-1.0" upper="1.0" velocity="0.5"/> -->
+        <origin xyz="0 0 ${link2_length}" rpy="0 0.84 0"/>
+        <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
     </joint>
 
 </robot>
