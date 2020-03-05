@@ -14,7 +14,7 @@ reel:
     reel_base_offset: 0.65 (from edge)
     diameter: 0.378 + 0.02 = 0.398
     radius: 
-    length: 0.19
+    length: 0.09
 
 link1:
     length: 0.73m

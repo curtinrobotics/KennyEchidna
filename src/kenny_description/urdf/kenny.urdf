@@ -13,6 +13,7 @@
 
     <!--  ++++++++++++++++++++++++++++++++++++++++ PARAMETERS -->
 
+    <xacro:property name="pi" value="3.1419" />
 
     <xacro:property name="base_length" value="1.176" />
     <xacro:property name="base_width" value="0.444" />
@@ -25,7 +26,7 @@
     <xacro:property name="wheel_depth" value="0.338" />
 
     <xacro:property name="reel_rad" value="0.199" />
-    <xacro:property name="reel_length" value="0.19" />
+    <xacro:property name="reel_length" value="0.09" />
     <xacro:property name="reel_base_offset" value="0.0" />
 
     <xacro:property name="link1_length" value="0.73"/>
@@ -46,11 +47,13 @@
     <xacro:property name="camera_pan_length" value="0.023"/>
     <xacro:property name="pan_arm_offset" value="0.12"/>
 
-    <xacro:property name="camera_tilt_length" value="0.05"/>
-    <xacro:property name="camera_tilt_width" value="0.05"/>
-    <xacro:property name="camera_tilt_depth" value="0.05"/>
-
+    <xacro:property name="camera_tilt_block_length" value="0.109"/>
+    <xacro:property name="camera_tilt_block_width" value="0.053"/>
+    <xacro:property name="camera_tilt_block_depth" value="0.142"/>
     
+    <xacro:property name="camera_tilt_holder_length" value="0.081"/>
+    <xacro:property name="camera_tilt_holder_width" value="0.153"/>
+    <xacro:property name="camera_tilt_holder_depth" value="0.102"/>
 
     <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
 
@@ -66,7 +69,7 @@
             <geometry>
                 <box size="${base_length} ${base_width} ${base_depth}"/>
             </geometry>
-            <origin xyz="0 0 ${off_floor}" />
+            <origin xyz="0 0 ${off_floor+base_depth/2}" />
         </collision>
     </link>
 
@@ -88,7 +91,7 @@
     <joint name="base_to_wheel_left" type="fixed">
         <parent link="base_link"/>
         <child link="wheel_left"/>
-        <origin xyz="0 ${-0.5*(base_width+wheel_width)} ${off_floor+(off_floor - wheel_depth)/2}" />
+        <origin xyz="0 ${-0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
     </joint>
 
 
@@ -110,7 +113,7 @@
     <joint name="base_to_wheel_right" type="fixed">
         <parent link="base_link"/>
         <child link="wheel_right"/>
-        <origin xyz="0 ${0.5*(base_width+wheel_width)} ${off_floor+(off_floor - wheel_depth)/2}" />
+        <origin xyz="0 ${0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
     </joint>
 
 
@@ -133,10 +136,8 @@
         <parent link="base_link"/>
         <child link="reel"/>
         <axis xyz="0 0 1"/>
-        <!-- <origin xyz="${reel_base_offset} 0 ${base_depth+reel_length/2}" rpy="0 0 0" /> -->
-        <!-- <origin xyz="${reel_base_offset} 0 0" rpy="0 0 0" /> -->
-        <!-- <origin xyz="0 0 0" /> -->
-        <origin xyz="${reel_base_offset} 0 ${base_depth+reel_length/2}" />
+        <origin xyz="${reel_base_offset} 0 ${base_depth}" />
+        <!-- <origin xyz="${reel_base_offset} 0 0" /> -->
     </joint>
 
 
@@ -185,6 +186,7 @@
         <limit effort="1000.0" lower="0" upper="1.65" velocity="0.5"/>
     </joint>
 
+
     <link name="arm_link3">
         <visual>
             <geometry>
@@ -228,29 +230,47 @@
         <child link="camera_pan"/>
         <axis xyz="0 0 1"/>
         <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/>
-        <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
+        <limit effort="1000.0" lower="${-pi/4}" upper="${pi/4}" velocity="0.5"/>
     </joint>
 
-    <link name="camera_tilt">
+
+    <link name="camera_tilt_block">
         <visual>
             <geometry>
-                <box size="${camera_tilt_length} ${camera_tilt_width} ${camera_tilt_depth}"/>
+                <box size="${camera_tilt_block_length} ${camera_tilt_block_width} ${camera_tilt_block_depth}"/>
             </geometry>
             <origin xyz="0 0 0"/>
             <material name="yellow"/>
         </visual>
         <collision>
             <geometry>
-                <box size="${camera_tilt_length} ${camera_tilt_width} ${camera_tilt_depth}"/>
+                <box size="${camera_tilt_block_length} ${camera_tilt_block_width} ${camera_tilt_block_depth}"/>
             </geometry>
         </collision>
     </link>
-    <joint name="camera_tilt_to_pan" type="revolute">
-        <!-- <parent name="camera_pan"/>
-        <child name="camera_tilt"/> -->
+    <joint name="camera_tilt_block_to_pan" type="fixed">
+        <parent link="camera_pan"/>
+        <child link="camera_tilt_block"/> 
         <axis xyz="0 1 0"/>
-        <origin xyz="0 0 ${camera_pan_length/2+camera_tilt_length}" rpy="0 0 0"/>
-        <limit effort="1000.0" lower="-0.84" upper="0" velocity="0.5"/>
+        <origin xyz="0 ${camera_pan_rad} ${camera_pan_rad-camera_tilt_block_width/2}" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="camera_tilt_holder">
+        <visual>
+            <geometry>
+                <box size="${camera_tilt_holder_length} ${camera_tilt_holder_width} ${camera_tilt_holder_depth}"/>
+            </geometry>
+            <origin xyz="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+    </link>
+    <joint name="camera_tilt_block_to_holder" type="revolute">
+        <parent link="camera_tilt_block"/>
+        <child link="camera_tilt_holder"/> 
+        <axis xyz="0 1 0"/>
+        <origin xyz="0 ${-camera_tilt_holder_length} ${camera_tilt_block_depth/2}" rpy="0 0 0"/>
+        <limit effort="1000.0" lower="${-1*pi/6}" upper="${pi/6}" velocity="0.5"/>
     </joint>
 
 
