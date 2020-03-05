@@ -1,0 +1,49 @@
+off-floor: 0.406 - 0.308
+
+wheel:
+    length: 1.135m
+    width: 0.12
+    depth: 0.338
+
+base:
+    length: 1.176m
+    width: 0.444m
+    depth: 0.308
+
+reel:
+    reel_base_offset: 0.65 (from edge)
+    diameter: 0.378 + 0.02 = 0.398
+    radius: 
+    length: 0.19
+
+link1:
+    length: 0.73m
+    width: 0.378
+    depth: 0.232m
+
+link2:
+    length: 0.64m
+    width: 0.389m
+    depth: 0.18m
+
+link3:
+    length: 0.788 m
+    width: 0.06 m
+    depth: 0.08m
+
+reel depth offset depth from bottom of link1: 0.162
+camera pan offset length: 0.12
+camera_pan:
+    diameter: 0.19
+    rad: 
+    length: 0.023
+
+camera_tilt_block:
+    length: 0.109 
+    width: 0.053
+    depth: 0.142
+
+camera_tilt_holder:
+    length: 0.081
+    width: 0.153m
+    depth: 0.102m
