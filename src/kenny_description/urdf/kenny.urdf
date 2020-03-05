@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
 
+    <author>
+        <name> Ilke Dincer </name> 
+    </author>
+
+    <description>
+        An URDF of Kenny the Echidna bomb disposal robot. 
+    </description>
+
     <!--  ++++++++++++++++++++++++++++++++++++++++ MATERIALS -->
 
     <material name="yellow">
