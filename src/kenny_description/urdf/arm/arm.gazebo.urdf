@@ -1,0 +1,6 @@
+<!-- <?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
+  <xacro:macro name="kenny_arm_link" params="parent">
+    <gazebo reference=""
+  </xacro:macro>
+</robot> -->

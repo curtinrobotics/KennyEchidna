@@ -12,7 +12,7 @@
   <xacro:include filename="$(find kenny_description)/urdf/materials.urdf.xacro" /> 
   <xacro:include filename="$(find kenny_description)/urdf/base/base.urdf.xacro" /> 
   <xacro:include filename="$(find kenny_description)/urdf/arm/arm.urdf.xacro" /> 
-  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/cameramech.urdf.xacro" /> 
+  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.urdf.xacro" /> 
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ PARAMETERS -->
 
@@ -34,5 +34,10 @@
     <!-- <origin xyz="${pan_arm_offset} 0 0" rpy="0 0 0"/> -->
   </xacro:camera_mechanism>
 
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/kenny</robotNamespace>
+    </plugin>
+  </gazebo>
 
 </robot>

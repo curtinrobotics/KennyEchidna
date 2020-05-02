@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.transmission.urdf"/>
+
   <xacro:property name="camera_pan_rad" value="0.095"/>
   <xacro:property name="camera_pan_length" value="0.023"/>
 
@@ -26,8 +28,13 @@
           <cylinder length="${camera_pan_length}" radius="${camera_pan_rad}"/> 
         </geometry>
       </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
     </link>
-    <joint name="camera_pan_to_arm1" type="revolute">
+    <joint name="joint_camera_pan_to_arm1" type="revolute">
       <!-- <parent link="arm_link1"/> -->
       <parent link="${parent}"/>
       <child link="camera_pan"/>
@@ -51,6 +58,11 @@
             <box size="${camera_tilt_block_length} ${camera_tilt_block_width} ${camera_tilt_block_depth}"/>
         </geometry>
       </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
     </link>
     <joint name="camera_tilt_block_to_pan" type="fixed">
       <parent link="camera_pan"/>
@@ -68,14 +80,23 @@
         <origin xyz="0 0 0"/>
         <material name="yellow"/>
       </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
     </link>
-    <joint name="camera_tilt_block_to_holder" type="revolute">
+    <joint name="joint_camera_tilt_block_to_holder" type="revolute">
       <parent link="camera_tilt_block"/>
       <child link="camera_tilt_holder"/> 
       <axis xyz="0 1 0"/>
       <origin xyz="0 ${-camera_tilt_holder_length} ${camera_tilt_block_depth/2}" rpy="0 0 0"/>
       <limit effort="1000.0" lower="${-1*pi/6}" upper="${pi/6}" velocity="0.5"/>
     </joint>
+
+    <xacro:camera_joint name="camera_pan_to_arm1"/>
+    <xacro:camera_joint name="camera_tilt_block_to_holder"/>
+
 
   </xacro:macro>
 

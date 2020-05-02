@@ -1,0 +1,6 @@
+type: "position_controllers/JointGroupPositionController"
+joints:
+  - reel
+  - arm_link1
+  - arm_link2
+  - arm_link2

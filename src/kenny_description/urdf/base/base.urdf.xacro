@@ -15,6 +15,36 @@
   <xacro:property name="reel_length" value="0.09" />
   <xacro:property name="reel_base_offset" value="0.0" />
 
+
+
+  <xacro:macro name="wheel" params="name reflect">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <geometry>
+            <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+        </geometry>
+        <!-- <origin xyz="0 0 0"/> -->
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${+0.5*base_depth}" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
+    </link>
+    <joint name="base_to_${name}" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}"/>
+      <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
+    </joint>
+  </xacro:macro>
+
   <xacro:macro name="kenny_base" >
     <link name="base_link">
       <visual>
@@ -31,50 +61,16 @@
         <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
         <origin xyz="0 0 0" />
       </collision>
+      <inertial>
+        <origin xyz="0 0 ${off_floor+0.5*base_depth}" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
     </link>
-
-    <link name="wheel_left">
-      <visual>
-        <geometry>
-          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
-        </geometry>
-        <origin xyz="0 0 0"/>
-        <material name="black"/>
-      </visual>
-      <collision>
-        <geometry>
-          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
-        </geometry>
-        <!-- <origin xyz="0 0 0"/> -->
-      </collision>
-    </link>
-    <joint name="base_to_wheel_left" type="fixed">
-      <parent link="base_link"/>
-      <child link="wheel_left"/>
-      <origin xyz="0 ${-0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
-    </joint>
-
-
-    <link name="wheel_right">
-      <visual>
-        <geometry>
-          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
-        </geometry>
-        <origin xyz="0 0 0"/>
-        <material name="black"/>
-      </visual>
-      <collision>
-        <geometry>
-            <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
-        </geometry>
-        <!-- <origin xyz="0 0 0"/> -->
-      </collision>
-    </link>
-    <joint name="base_to_wheel_right" type="fixed">
-      <parent link="base_link"/>
-      <child link="wheel_right"/>
-      <origin xyz="0 ${0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
-    </joint>
+    
+    <xacro:wheel name="wheel_right" reflect="1" />
+    <xacro:wheel name="wheel_left" reflect="-1"/>
 
   </xacro:macro>
+
 </robot>
