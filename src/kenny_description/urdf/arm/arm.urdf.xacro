@@ -14,6 +14,7 @@
   <xacro:property name="link3_depth" value="0.08"/>
 
   <xacro:macro name="kenny_arm" params="parent *origin">
+
     <link name="reel">
       <visual>
         <geometry>
@@ -30,7 +31,7 @@
         </collision>
     </link>
     <joint name="base_to_reel" type="continuous">
-      <parent link="$(parent)"/>
+      <parent link="${parent}"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin" />

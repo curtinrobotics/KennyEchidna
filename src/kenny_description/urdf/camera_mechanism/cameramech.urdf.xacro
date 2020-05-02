@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="camera_pan_rad" value="0.095"/>
+  <xacro:property name="camera_pan_length" value="0.023"/>
+
+  <xacro:property name="camera_tilt_block_length" value="0.109"/>
+  <xacro:property name="camera_tilt_block_width" value="0.053"/>
+  <xacro:property name="camera_tilt_block_depth" value="0.142"/>
+  
+  <xacro:property name="camera_tilt_holder_length" value="0.081"/>
+  <xacro:property name="camera_tilt_holder_width" value="0.153"/>
+  <xacro:property name="camera_tilt_holder_depth" value="0.102"/>
+
+  <xacro:macro name="camera_mechanism" params="parent *origin">
+    <link name="camera_pan">
+      <visual>
+        <geometry>
+          <cylinder length="${camera_pan_length}" radius="${camera_pan_rad}"/> 
+        </geometry>
+        <origin xyz="0 0 ${camera_pan_length/2}" rpy="0 0 0"/>
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder length="${camera_pan_length}" radius="${camera_pan_rad}"/> 
+        </geometry>
+      </collision>
+    </link>
+    <joint name="camera_pan_to_arm1" type="revolute">
+      <!-- <parent link="arm_link1"/> -->
+      <parent link="${parent}"/>
+      <child link="camera_pan"/>
+      <axis xyz="0 0 1"/>
+      <!-- <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/> -->
+      <xacro:insert_block name="origin"/>
+      <limit effort="1000.0" lower="${-pi/4}" upper="${pi/4}" velocity="0.5"/>
+    </joint>
+
+
+    <link name="camera_tilt_block">
+      <visual>
+        <geometry>
+          <box size="${camera_tilt_block_length} ${camera_tilt_block_width} ${camera_tilt_block_depth}"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <geometry>
+            <box size="${camera_tilt_block_length} ${camera_tilt_block_width} ${camera_tilt_block_depth}"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="camera_tilt_block_to_pan" type="fixed">
+      <parent link="camera_pan"/>
+      <child link="camera_tilt_block"/> 
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 ${camera_pan_rad} ${camera_pan_rad-camera_tilt_block_width/2}" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="camera_tilt_holder">
+      <visual>
+        <geometry>
+          <box size="${camera_tilt_holder_length} ${camera_tilt_holder_width} ${camera_tilt_holder_depth}"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+        <material name="yellow"/>
+      </visual>
+    </link>
+    <joint name="camera_tilt_block_to_holder" type="revolute">
+      <parent link="camera_tilt_block"/>
+      <child link="camera_tilt_holder"/> 
+      <axis xyz="0 1 0"/>
+      <origin xyz="0 ${-camera_tilt_holder_length} ${camera_tilt_block_depth/2}" rpy="0 0 0"/>
+      <limit effort="1000.0" lower="${-1*pi/6}" upper="${pi/6}" velocity="0.5"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

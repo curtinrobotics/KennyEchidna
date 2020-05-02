@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
   <xacro:property name="base_length" value="1.176" />
   <xacro:property name="base_width" value="0.444" />
   <xacro:property name="base_depth" value="0.308" />
 
-  <xacro:property name="off_floor" value="0.1" />
+  <xacro:property name="off_floor" value="0.05" />
 
   <xacro:property name="wheel_length" value="1.135" />
   <xacro:property name="wheel_width" value="0.12" />
@@ -14,50 +15,22 @@
   <xacro:property name="reel_length" value="0.09" />
   <xacro:property name="reel_base_offset" value="0.0" />
 
-  <xacro:macro name="kenny_base" params="name">
-    <link name="$(name)_link">
+  <xacro:macro name="kenny_base" >
+    <link name="base_link">
       <visual>
         <geometry>
             <box size="${base_length} ${base_width} ${base_depth}"/>
         </geometry>
-        <origin xyz="0 0 ${off_floor}" />
+        <origin xyz="0 0 ${off_floor+base_depth/2}" />
         <material name="yellow"/>
       </visual>
       <collision>
         <geometry>
             <box size="${base_length} ${base_width} ${base_depth}"/>
         </geometry>
-        <origin xyz="0 0 ${off_floor+base_depth/2}" />
-    </collision>
-    </link>
-
-    <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
-    navigation stack dedpends on this frame -->
-    <link name="${name}_footprint">
-      <inertial>
-        <mass value="1.0" />
+        <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
         <origin xyz="0 0 0" />
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0"
-                iyy="0.01" iyz="0.0" izz="0.01" />
-      </inertial>
-
-      <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <geometry>
-          <box size="0.01 0.01 0.01" />
-        </geometry>
-        
-        <material name="White" />
-      </visual>
-
-      <collision>
-        <!-- represent base collision with a simple rectangular model -->
-        <origin xyz="0 0 0.05" rpy="0 0 0" />
-        <geometry>
-          <box size="0.001 0.001 0.001" />
-        </geometry>
       </collision>
-      
     </link>
 
     <link name="wheel_left">
@@ -102,10 +75,6 @@
       <child link="wheel_right"/>
       <origin xyz="0 ${0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
     </joint>
-
-
-    
-
 
   </xacro:macro>
 </robot>
