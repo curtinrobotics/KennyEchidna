@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
+
+  <!-- Arm joint -->
+  <xacro:macro name="kenny_arm_joint" params="name">
+    <transmission name="tran_${name}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="joint_${name}">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="actuator_${name}"> 
+        <!-- <hardwareInterface>EffortJointInterface</hardwareInterface>  -->
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+</robot>

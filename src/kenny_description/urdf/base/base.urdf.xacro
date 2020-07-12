@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="base_length" value="1.176" />
+  <xacro:property name="base_width" value="0.444" />
+  <xacro:property name="base_depth" value="0.308" />
+
+  <xacro:property name="off_floor" value="0.05" />
+
+  <xacro:property name="wheel_length" value="1.135" />
+  <xacro:property name="wheel_width" value="0.12" />
+  <xacro:property name="wheel_depth" value="0.338" />
+
+  <xacro:property name="reel_rad" value="0.199" />
+  <xacro:property name="reel_length" value="0.09" />
+  <xacro:property name="reel_base_offset" value="0.0" />
+
+
+
+  <xacro:macro name="wheel" params="name reflect">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+        </geometry>
+        <origin xyz="0 0 0"/>
+        <material name="black"/>
+      </visual>
+      <collision>
+        <geometry>
+            <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+        </geometry>
+        <!-- <origin xyz="0 0 0"/> -->
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${+0.5*base_depth}" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
+    </link>
+    <joint name="base_to_${name}" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}"/>
+      <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="kenny_base" >
+    <link name="base_link">
+      <visual>
+        <geometry>
+            <box size="${base_length} ${base_width} ${base_depth}"/>
+        </geometry>
+        <origin xyz="0 0 ${off_floor+base_depth/2}" />
+        <material name="yellow"/>
+      </visual>
+      <collision>
+        <geometry>
+            <box size="${base_length} ${base_width} ${base_depth}"/>
+        </geometry>
+        <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
+        <origin xyz="0 0 0" />
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${off_floor+0.5*base_depth}" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+      </inertial>
+    </link>
+    
+    <xacro:wheel name="wheel_right" reflect="1" />
+    <xacro:wheel name="wheel_left" reflect="-1"/>
+
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,23 @@
+<launch>
+  <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/>
+  <arg name="rvizconfig" default="$(find kenny_description)/rviz/urdf.rviz" />
+
+  <include file="$(find kenny_description)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+
+  <rosparam command="load"
+            file="$(find kenny_description)/config/joints.yaml"
+            ns="kenny_arm_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find kenny_description)/config/armjoints.yaml"
+            ns="kenny_arm_joints_controller" />
+
+  <node name="kenny_controller_spawner" pkg="controller_manager" type="spawner" 
+        ns="\kenny" output="screen"
+        args="kenny_joint_state_controller
+              kenny_arm_joints_controller"/>
+</launch>
