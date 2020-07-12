@@ -19,8 +19,10 @@
   <xacro:property name="pi" value="3.1419" />
 
   <xacro:property name="pan_arm_offset" value="0.12"/>
+  
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
+
 
   <xacro:kenny_base />
 
@@ -36,6 +38,7 @@
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/kenny</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
 

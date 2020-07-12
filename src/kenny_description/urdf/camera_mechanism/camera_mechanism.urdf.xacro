@@ -2,6 +2,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.transmission.urdf"/>
+  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.gazebo.urdf"/>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:property name="camera_pan_rad" value="0.095"/>
   <xacro:property name="camera_pan_length" value="0.023"/>
@@ -13,6 +16,8 @@
   <xacro:property name="camera_tilt_holder_length" value="0.081"/>
   <xacro:property name="camera_tilt_holder_width" value="0.153"/>
   <xacro:property name="camera_tilt_holder_depth" value="0.102"/>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="camera_mechanism" params="parent *origin">
     <link name="camera_pan">
@@ -98,6 +103,7 @@
     <xacro:camera_joint name="camera_z_rotation"/>
     <xacro:camera_joint name="camera_y_rotation"/>
 
+    <xacro:camera_mechanism_gazebo/>
 
   </xacro:macro>
 

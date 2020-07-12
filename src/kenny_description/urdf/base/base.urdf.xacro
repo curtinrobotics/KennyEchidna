@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   
+  <!-- <xacro:include filename="$(find kenny_description)/urdf/base/base.transmission.xacro"/> -->
+  <xacro:include filename="$(find kenny_description)/urdf/base/base.gazebo.urdf"/>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
+
   <xacro:property name="base_length" value="1.176" />
   <xacro:property name="base_width" value="0.444" />
   <xacro:property name="base_depth" value="0.308" />
@@ -15,6 +20,7 @@
   <xacro:property name="reel_length" value="0.09" />
   <xacro:property name="reel_base_offset" value="0.0" />
 
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
 
   <xacro:macro name="wheel" params="name reflect">
@@ -70,6 +76,8 @@
     
     <xacro:wheel name="wheel_right" reflect="1" />
     <xacro:wheel name="wheel_left" reflect="-1"/>
+
+    <xacro:base_gazebo/>
 
   </xacro:macro>
 

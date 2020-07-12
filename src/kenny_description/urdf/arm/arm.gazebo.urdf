@@ -1,6 +1,47 @@
-<!-- <?xml version="1.0"?>
+<?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
-  <xacro:macro name="kenny_arm_link" params="parent">
-    <gazebo reference=""
+
+  <xacro:macro name="arm_gazebo">
+
+    <gazebo reference="reel">
+      <material>Gazebo/yellow</material>
+    </gazebo>
+
+    <gazebo reference="link1">
+      <material>Gazebo/yellow</material>
+    </gazebo>
+
+    <gazebo reference="link2">
+      <material>Gazebo/yellow</material>
+    </gazebo>
+
+    <gazebo reference="link3">
+      <material>Gazebo/yellow</material>
+    </gazebo>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
+
+    <gazebo reference="base_to_reel">
+      <!-- <parent link="${parent}"/>
+      <child link="reel"/>
+      <axis xyz="0 0 1"/>
+      <xacro:insert_block name="origin" /> -->
+      <dynamics damping="0.7"/>
+    </gazebo>
+
+    <gazebo refeence="joint_reel_link1">
+      <!-- <dynamics damping="0.7"/> -->
+    </gazebo>
+
+    <gazebo reference="joint_link1_link2">
+      <dynamics damping="0.7"/>
+    </gazebo>
+
+    <gazebo reference="joint_link2_link3">
+      <dynamics damping="0.7"/>
+    </gazebo>
+
+
   </xacro:macro>
-</robot> -->
+
+</robot>

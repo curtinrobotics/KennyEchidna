@@ -2,6 +2,9 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find kenny_description)/urdf/arm/arm.transmission.xacro"/>
+  <xacro:include filename="$(find kenny_description)/urdf/arm/arm.gazebo.urdf"/>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:property name="link1_length" value="0.73"/>
   <xacro:property name="link1_width" value="0.378"/>
@@ -15,6 +18,8 @@
   <xacro:property name="link3_length" value="0.788"/>
   <xacro:property name="link3_width" value="0.06"/>
   <xacro:property name="link3_depth" value="0.08"/>
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="kenny_arm" params="parent *origin">
 
@@ -67,10 +72,12 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-    <joint name="joint_reel_link1" type="fixed">
+    <joint name="joint_reel_link1" type="revolute">
         <parent link="reel"/>
         <child link="arm_link1"/>
         <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
     </joint>
 
 
@@ -133,10 +140,12 @@
     </joint>
 
     <!-- Transmission Macros -->
-    <xacro:kenny_arm_joint name="link1_link2"/>
-    <xacro:kenny_arm_joint name="link2_link3"/>
-    <xacro:kenny_arm_joint name="reel_link1"/>
+    <xacro:kenny_arm_joint_transmission name="reel_link1"/>
+    <xacro:kenny_arm_joint_transmission name="link1_link2"/>
+    <xacro:kenny_arm_joint_transmission name="link2_link3"/>
 
+    <!-- Gazebo Macro -->
+    <xacro:arm_gazebo/>
 
   </xacro:macro>
 

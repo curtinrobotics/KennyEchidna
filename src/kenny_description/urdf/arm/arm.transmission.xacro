@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
 
   <!-- Arm joint -->
-  <xacro:macro name="kenny_arm_joint" params="name">
+  <xacro:macro name="kenny_arm_joint_transmission" params="name">
     <transmission name="tran_${name}">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="joint_${name}">
