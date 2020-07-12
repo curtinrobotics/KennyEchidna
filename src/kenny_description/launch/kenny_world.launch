@@ -25,4 +25,7 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
         args="-z 1.0 -unpause -urdf -model kenny -param robot_description" respawn="false" output="screen" />
 
+  <!-- ros_control rrbot launch file -->
+  <!-- <include file="$(find kenny_control)/launch/kenny_control.launch" /> -->
+
 </launch>
