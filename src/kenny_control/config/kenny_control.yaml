@@ -1,0 +1,32 @@
+kenny:
+
+  #------------- publish all joint states
+  joint_state_controller:
+    state: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # ----------------- position controllers
+  joint_reel_link1_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_base_link1
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  joint_link1_link2_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_link1_link2
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  joint_link2_link3_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_link2_link3
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  joint_camera_z_rotation_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_camera_z_rotation
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+    
+  joint_camera_y_rotation_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_camera_y_rotation
+    pid: {p: 100.0, i: 0.01, d: 10.0}

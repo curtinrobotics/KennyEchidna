@@ -16,9 +16,6 @@
   <xacro:property name="wheel_width" value="0.12" />
   <xacro:property name="wheel_depth" value="0.338" />
 
-  <xacro:property name="reel_rad" value="0.199" />
-  <xacro:property name="reel_length" value="0.09" />
-  <xacro:property name="reel_base_offset" value="0.0" />
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
