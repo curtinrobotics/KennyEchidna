@@ -4,19 +4,19 @@
   <xacro:macro name="arm_gazebo">
 
     <gazebo reference="reel">
-      <material>Gazebo/yellow</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="link1">
-      <material>Gazebo/yellow</material>
+    <gazebo reference="arm_link1">
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="link2">
-      <material>Gazebo/yellow</material>
+    <gazebo reference="arm_link2">
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="link3">
-      <material>Gazebo/yellow</material>
+    <gazebo reference="arm_link3">
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->

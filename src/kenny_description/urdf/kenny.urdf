@@ -9,7 +9,7 @@
     An URDF of Kenny the Echidna bomb disposal robot. 
   </description>
 
-  <xacro:include filename="$(find kenny_description)/urdf/materials.urdf.xacro" /> 
+  <xacro:include filename="$(find kenny_description)/urdf/materials.xacro" /> 
   <xacro:include filename="$(find kenny_description)/urdf/base/base.urdf.xacro" /> 
   <xacro:include filename="$(find kenny_description)/urdf/arm/arm.urdf.xacro" /> 
   <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.urdf.xacro" /> 
@@ -19,7 +19,7 @@
   <xacro:property name="pi" value="3.1419" />
 
   <xacro:property name="pan_arm_offset" value="0.12"/>
-  
+
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
 
