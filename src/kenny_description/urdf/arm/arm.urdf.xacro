@@ -28,6 +28,7 @@
   <xacro:macro name="kenny_arm" params="parent *origin">
 
     <link name="reel">
+
       <visual>
         <geometry>
           <cylinder length="${reel_length}" radius="${reel_rad}"/>
@@ -35,27 +36,31 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="yellow"/>
       </visual>
-        <collision>
-          <geometry>
-              <cylinder length="${reel_length}" radius="${reel_rad}"/>
-          </geometry>
-          <!-- <origin xyz="0 0 0"/> -->
-        </collision>
+
+      <collision>
+        <geometry>
+            <cylinder length="${reel_length}" radius="${reel_rad}"/>
+        </geometry>
+        <!-- <origin xyz="0 0 0"/> -->
+      </collision>
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-    <joint name="base_to_reel" type="revolute">
+
+    <!-- fixed joints do not exist in gazebo models (SDF file format), 
+         fixed joint is now revolute with 0 degrees of motion -->
+    <joint name="joint_base_reel" type="revolute">
       <parent link="${parent}"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin" />
         <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
-      <!-- <origin xyz="${reel_base_offset} 0 ${base_depth}" /> -->
-      <!-- <origin xyz="${reel_base_offset} 0 0" /> -->
     </joint>
+
 
 
     <link name="arm_link1">
@@ -66,17 +71,20 @@
         <material name="yellow"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
       </visual>
+
       <collision>
         <geometry>
           <box size="${link1_length} ${link1_width} ${link1_depth}"/>
         </geometry>
       </collision>
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
+
     <joint name="joint_base_link1" type="continuous">
         <parent link="reel"/>
         <child link="arm_link1"/>
@@ -84,6 +92,7 @@
         <axis xyz="0 0 1"/>
         <!-- <limit effort="1000.0" lower="0" upper="0" velocity="0"/> -->
     </joint>
+
 
 
     <link name="arm_link2">
@@ -94,18 +103,21 @@
         <origin xyz="0 0 ${link2_length/2}" rpy="0 0 0"/>
         <material name="yellow"/>
       </visual>
+
       <collision>
         <geometry>
             <box size="${link2_depth} ${link2_width} ${link2_length}"/>
         </geometry>
         <origin xyz="0 0 ${link2_length/2}" rpy="0 0 0"/>
       </collision>
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
+
     <joint name="joint_link1_link2" type="revolute">
       <parent link="arm_link1"/>
       <child link="arm_link2"/>
@@ -116,6 +128,7 @@
     </joint>
 
 
+
     <link name="arm_link3">
       <visual>
         <geometry>
@@ -124,18 +137,21 @@
         <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
         <material name="yellow"/>
       </visual>
+
       <collision>
         <geometry>
           <box size="${link3_length} ${link3_width} ${link3_depth}"/>
         </geometry>
         <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
       </collision>
+
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
+
     <joint name="joint_link2_link3" type="revolute">
       <parent link="arm_link2"/>
       <child link="arm_link3"/>
@@ -144,8 +160,10 @@
       <limit effort="1000.0" lower="0" upper="0.84" velocity="0.5"/>
     </joint>
 
+
+
     <!-- Transmission Macros -->
-    <xacro:kenny_arm_joint_transmission name="reel_link1"/>
+    <xacro:kenny_arm_joint_transmission name="base_link1"/>
     <xacro:kenny_arm_joint_transmission name="link1_link2"/>
     <xacro:kenny_arm_joint_transmission name="link2_link3"/>
 
