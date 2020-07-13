@@ -24,14 +24,16 @@
     <link name="${name}">
       <visual>
         <geometry>
-          <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+          <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+            <cylinder length="${wheel_width}" radius="${wheel_depth/2}"/>
         </geometry>
-        <origin xyz="0 0 0"/>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
         <material name="black"/>
       </visual>
       <collision>
         <geometry>
-            <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/>
+            <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+            <cylinder length="${wheel_width}" radius="${wheel_depth/2}"/>
         </geometry>
         <!-- <origin xyz="0 0 0"/> -->
       </collision>
@@ -41,12 +43,16 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-    <joint name="base_to_${name}" type="fixed">
+    <joint name="joint_base_${name}" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/>
       <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
+      <axis xyz="0 1 0"/>
     </joint>
   </xacro:macro>
+
+
+  <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="kenny_base" >
     <link name="base_link">
