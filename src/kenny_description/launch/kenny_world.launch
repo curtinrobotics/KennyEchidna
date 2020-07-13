@@ -17,7 +17,8 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-  <!-- <param name="robot_description" command="$(find xacro)/xacro $(arg model)" /> -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node> 
+
   <param name="robot_description" 
         command="$(find xacro)/xacro --inorder '$(find kenny_description)/urdf/kenny.urdf'" />
 
@@ -27,5 +28,7 @@
 
   <!-- ros_control rrbot launch file -->
   <!-- <include file="$(find kenny_control)/launch/kenny_control.launch" /> -->
+
+
 
 </launch>

@@ -5,7 +5,18 @@ kenny:
     state: joint_state_controller/JointStateController
     publish_rate: 50
 
-  # ----------------- position controllers
+  # ----------------- position controllers - base
+
+  # base_control:
+  #   type: "diff_drive_controller/DiffDriveController"
+  #   left_wheel: 
+  #   right_wheel: 
+  #   publish_rate: 50
+    
+  #   base_frame_id: base_link
+
+
+  # ----------------- position controllers - arms
   joint_base_link1_controller:
     type: position_controllers/JointPositionController
     joint: joint_base_link1
@@ -20,6 +31,8 @@ kenny:
     type: position_controllers/JointPositionController
     joint: joint_link2_link3
     pid: {p: 100.0, i: 0.01, d: 10.0}
+
+# ----------------- position controllers - camera mechanism
 
   joint_camera_z_rotation_controller:
     type: position_controllers/JointPositionController
