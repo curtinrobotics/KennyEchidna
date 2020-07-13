@@ -4,15 +4,15 @@
   <xacro:macro name="base_gazebo">
 
     <gazebo reference="base_link">
-      <material>Gazebo/yellow</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="wheel_right">
-      <material>Gazebo/black</material>
+      <material>Gazebo/Black</material>
     </gazebo>
 
     <gazebo reference="wheel_left">
-      <material>Gazebo/black</material>
+      <material>Gazebo/Black</material>
     </gazebo>
 
   </xacro:macro>

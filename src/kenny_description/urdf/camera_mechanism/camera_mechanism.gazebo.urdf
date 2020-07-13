@@ -4,15 +4,15 @@
   <xacro:macro name="camera_mechanism_gazebo">
 
     <gazebo reference="camera_pan">
-      <material>Gazebo/yellow</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="camera_tilt_block">
-      <material>Gazebo/black</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="camera_tilt_holder">
-      <material>Gazebo/black</material>
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
   </xacro:macro>
