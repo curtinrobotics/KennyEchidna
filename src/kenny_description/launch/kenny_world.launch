@@ -6,7 +6,7 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="true"/>
-  <!-- <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/> -->
+  <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -20,7 +20,7 @@
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node> 
 
   <param name="robot_description" 
-        command="$(find xacro)/xacro --inorder '$(find kenny_description)/urdf/kenny.urdf'" />
+        command="$(find xacro)/xacro $(arg model)" />
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"

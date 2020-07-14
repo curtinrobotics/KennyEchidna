@@ -1,11 +1,23 @@
 <launch>
 
+  <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/>
+  <arg name="rvizconfig" default="$(find kenny_description)/rviz/urdf.rviz"/>
+
+  <!-- <param name="robot_description"  -->
+        <!-- command="$(find xacro)/xacro $(arg model)" /> -->
+  <include file="$(find kenny_description)/launch/kenny_world.launch">
+    <arg name="model" value="$(arg model)"/>
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/>
+
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find kenny_control)/config/control.yaml" command="load"/>
 
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/kenny" args="joint_base_link1_controller 
+    output="screen" ns="/kenny" args="drivebase_controller
+                                      joint_base_link1_controller 
                                       joint_link1_link2_controller 
                                       joint_link2_link3_controller 
                                       joint_camera_z_rotation_controller 
@@ -14,9 +26,11 @@
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
-    <remap from="/joint_states" to="/kenny/joint_states" />
+    <!-- <remap from="/joint_states" to="/kenny/joint_states" /> -->
   </node>
 
-  
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/kenny/drivebase_controller/cmd_vel"/>
+  </node>
 
 </launch>
