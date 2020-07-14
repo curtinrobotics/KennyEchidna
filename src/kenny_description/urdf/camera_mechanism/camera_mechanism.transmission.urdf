@@ -8,7 +8,6 @@
         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="actuator_${name}"> 
-        <hardwareInterface>EffortJointInterface</hardwareInterface> 
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>

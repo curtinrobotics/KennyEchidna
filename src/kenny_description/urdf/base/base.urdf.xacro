@@ -3,6 +3,7 @@
   
   <!-- <xacro:include filename="$(find kenny_description)/urdf/base/base.transmission.xacro"/> -->
   <xacro:include filename="$(find kenny_description)/urdf/base/base.gazebo.urdf"/>
+  <xacro:include filename="$(find kenny_description)/urdf/base/base.transmissions.xacro"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -22,6 +23,7 @@
 
   <xacro:macro name="wheel" params="name reflect">
     <link name="${name}">
+      
       <visual>
         <geometry>
           <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
@@ -30,6 +32,7 @@
         <origin xyz="0 0 0" rpy="1.57 0 0"/>
         <material name="black"/>
       </visual>
+
       <collision>
         <geometry>
             <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
@@ -37,12 +40,14 @@
         </geometry>
         <!-- <origin xyz="0 0 0"/> -->
       </collision>
+
       <inertial>
         <origin xyz="0 0 ${+0.5*base_depth}" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
+    
     <joint name="joint_base_${name}" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/>
@@ -79,9 +84,14 @@
     
     <xacro:wheel name="wheel_right" reflect="1" />
     <xacro:wheel name="wheel_left" reflect="-1"/>
+    
+    <!-- Transmission Macros for wheels -->
+    <xacro:kenny_wheel_joint_transmission name="base_wheel_right"/>
+    <xacro:kenny_wheel_joint_transmission name="base_wheel_left"/>
 
+
+    <!-- Gazebo Macro -->
     <xacro:base_gazebo/>
-
   </xacro:macro>
 
 </robot>

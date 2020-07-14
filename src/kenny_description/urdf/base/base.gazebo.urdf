@@ -15,6 +15,18 @@
       <material>Gazebo/Black</material>
     </gazebo>
 
+    <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
+
+    <gazebo reference="joint_base_wheel_left">
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
+    </gazebo>
+
+    <gazebo reference="joint_base_wheel_right">
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
+    </gazebo>
+
   </xacro:macro>
 
 </robot>

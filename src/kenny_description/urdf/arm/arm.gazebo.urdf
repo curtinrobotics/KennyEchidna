@@ -27,18 +27,26 @@
       <axis xyz="0 0 1"/>
       <xacro:insert_block name="origin" /> -->
       <dynamics damping="0.7"/>
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
     </gazebo>
 
     <gazebo refeence="joint_base_reel">
       <!-- <dynamics damping="0.7"/> -->
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
     </gazebo>
 
     <gazebo reference="joint_link1_link2">
       <dynamics damping="0.7"/>
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
     </gazebo>
 
     <gazebo reference="joint_link2_link3">
       <dynamics damping="0.7"/>
+      <mu1>0.2</mu1>
+      <mu1>0.2</mu1>
     </gazebo>
 
 

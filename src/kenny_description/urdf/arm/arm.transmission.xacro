@@ -8,8 +8,7 @@
       <joint name="joint_${name}">
         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
-      <actuator name="actuator_${name}"> 
-        <!-- <hardwareInterface>EffortJointInterface</hardwareInterface>  -->
+      <actuator name="motor_${name}"> 
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
