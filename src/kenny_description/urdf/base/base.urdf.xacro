@@ -60,6 +60,8 @@
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="kenny_base" >
+    <link name="base_footprint"/>
+
     <link name="base_link">
       <visual>
         <geometry>
@@ -75,15 +77,23 @@
         <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
         <origin xyz="0 0 0" />
       </collision>
+    </link>
+    <joint name="base_footprint_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="base_footprint"/>
+    </joint>
+
+    <link name="inertial_link">
       <inertial>
         <origin xyz="0 0 ${off_floor+0.5*base_depth}" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-    <joint name="dummy_joint" type="fixed">
-      <parent link="dummy"/>
-      <child link="base_link"/>
+    <joint name="inertial_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="base_link" />
+      <child link="inertial_link" />
     </joint>
     
     <xacro:wheel name="wheel_right" reflect="1" />

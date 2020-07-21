@@ -23,7 +23,6 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
 
-  <link name="dummy"></link>
 
   <xacro:kenny_base />
 
@@ -42,33 +41,5 @@
       <!-- <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
     </plugin>
   </gazebo>
-
-  <!-- Differential drive controller  -->
-  <!-- <gazebo>
-    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-
-      <rosDebugLevel>Debug</rosDebugLevel>
-      <publishWheelTF>false</publishWheelTF>
-      <robotNamespace>/kenny</robotNamespace>
-      <publishTf>1</publishTf>
-      <publishWheelJointState>false</publishWheelJointState>
-      <alwaysOn>true</alwaysOn>
-      <updateRate>50.0</updateRate>
-      <leftJoint>joint_base_wheel_left</leftJoint>
-      <rightJoint>joint_base_wheel_right</rightJoint>
-      <wheelSeparation>${base_width}</wheelSeparation>
-      <wheelDiameter>${wheel_depth/2}</wheelDiameter>
-      <broadcastTF>1</broadcastTF>
-      <wheelTorque>30</wheelTorque>
-      <wheelAcceleration>1.8</wheelAcceleration>
-      <commandTopic>cmd_vel</commandTopic>
-      <odometryFrame>odom</odometryFrame> 
-      <odometryTopic>odom</odometryTopic> 
-      <robotBaseFrame>base_link</robotBaseFrame>
-
-
-    </plugin>
-  </gazebo>  -->
-
 
 </robot>
