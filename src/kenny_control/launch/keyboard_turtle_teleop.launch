@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="kenny_control" type="diff_wheeled_robot_key.py" name="diff_wheeled_robot_key" output="screen">
+  <node pkg="kenny_control" type="diff_wheeled_turtlebot_key.py" name="diff_wheeled_turtlebot_key" output="screen">
     <param name="scale_linear" value="0.5" type="double"/>
     <param name="scale_angular" value="1.5" type="double"/>
   </node>
