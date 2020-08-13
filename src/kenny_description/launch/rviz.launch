@@ -1,6 +1,7 @@
 <launch>
 
   <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/>
+  <!-- <arg name="model" default="$(find kenny_description)/urdf/arm/arm.urdf.xacro"/> -->
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find kenny_description)/rviz/urdf.rviz" />
 

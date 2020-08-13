@@ -26,9 +26,16 @@
 
   <xacro:kenny_base />
 
-  <xacro:kenny_arm parent="base_link">
+  <joint name="arm_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="reel"/>
     <origin xyz="${reel_base_offset} 0 ${base_depth+off_floor+0.5*reel_length}"/>
-  </xacro:kenny_arm>
+  </joint>
+
+  <!-- <xacro:kenny_arm parent="base_link">
+    <origin xyz="${reel_base_offset} 0 ${base_depth+off_floor+0.5*reel_length}"/>
+  </xacro:kenny_arm> -->
+  <xacro:kenny_arm />
 
   <xacro:camera_mechanism parent="arm_link1">
     <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/>

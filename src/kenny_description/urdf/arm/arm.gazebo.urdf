@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny_arm">
 
-  <xacro:macro name="arm_gazebo">
+  <xacro:macro name="kenny_arm_gazebo">
 
     <gazebo reference="reel">
       <material>Gazebo/Yellow</material>
