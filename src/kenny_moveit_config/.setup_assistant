@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ""
+    relative_path: /home/ilke/Documents/KennyEchidna/kennyout.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/kenny.srdf
+  CONFIG:
+    author_name: ilke
+    author_email: ilke.dincer@hotmail.com
+    generated_timestamp: 1597321510
