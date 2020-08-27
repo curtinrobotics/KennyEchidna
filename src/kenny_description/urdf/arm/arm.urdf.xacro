@@ -164,7 +164,7 @@
 
 
     <!-- Transmission Macros -->
-    <xacro:kenny_arm_joint_transmission name="base_link1"/>
+    <xacro:kenny_arm_joint_transmission name="reel_link1"/>
     <xacro:kenny_arm_joint_transmission name="link1_link2"/>
     <xacro:kenny_arm_joint_transmission name="link2_link3"/>
 

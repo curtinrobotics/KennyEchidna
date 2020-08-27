@@ -55,9 +55,9 @@ kenny:
 
 
   # ----------------- position controllers - arms
-  joint_base_link1_controller:
+  joint_reel_link1_controller:
     type: position_controllers/JointPositionController
-    joint: joint_base_link1
+    joint: joint_reel_link1
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   joint_link1_link2_controller:

@@ -21,7 +21,7 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
-    <gazebo reference="joint_base_link1">
+    <gazebo reference="joint_reel_link1">
       <!-- <parent link="${parent}"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
