@@ -1,0 +1,11 @@
+kenny:
+  hardware_interface:
+     loop_hz: 10 # hz
+     joints:
+       - joint_base_wheel_left
+       - joint_base_wheel_right
+       - joint_reel_link1
+       - joint_link1_link2
+       - joint_link2_link3
+       - joint_camera_z_rotation
+       - joint_camera_y_rotation
