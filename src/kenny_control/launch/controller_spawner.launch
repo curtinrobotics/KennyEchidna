@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="showSteeringPlugin" default="false"/>
-  <arg name="useRobotPublisher" default="false"/>
+  <arg name="launchRobotPublisher" default="false"/>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find kenny_control)/config/control.yaml" command="load"/>
@@ -16,7 +16,7 @@
                                       joint_camera_y_rotation_controller"/>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
-  <node if="$(arg useRobotPublisher)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+  <node if="$(arg launchRobotPublisher)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
     <remap from="/joint_states" to="/kenny/joint_states" />
   </node>
