@@ -2,7 +2,7 @@
 <package format="2">
   <name>kennycpp</name>
   <version>0.0.0</version>
-  <description>The kennycpp package</description>
+  <description>Package for interfacing hardware</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
