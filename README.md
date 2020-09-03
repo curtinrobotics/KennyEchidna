@@ -17,5 +17,7 @@ The joint origin defines the centre of the transform, the visual origin should b
 - kenny_gazebo
     - package for simulating kenny in gazebo
 - kenny_moveit_config
+- kennycpp
+    - package for interfacing with hardware
 - kenny_control
     - contains hardware interface, teleoperation, etc.
