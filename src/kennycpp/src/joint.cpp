@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdexcept>
 #include "ros/ros.h"
-#include <tr1cpp/joint.h>
-#include <tr1cpp/i2c.h>
+#include <kennycpp/joint.h>
+#include <kennycpp/i2c.h>
 
 #define PI 3.14159265359
 #define TAU 6.28318530718
