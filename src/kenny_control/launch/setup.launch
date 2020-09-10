@@ -15,9 +15,9 @@
 
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-        args="-z 1.0 -unpause -urdf -model kenny -param robot_description" respawn="false" output="screen" />
+  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 1.0 -unpause -urdf -model kenny -param robot_description" respawn="false" output="screen" /> -->
 
-  <include file="$(find kenny_control)/launch/controller_spawner.launch"/>
+  <!-- <include file="$(find kenny_control)/launch/controller_spawner.launch"/> -->
 
 </launch>

@@ -1,7 +1,7 @@
 # Simulation settings for using moveit_sim_controllers
 moveit_sim_hw_interface:
-  joint_model_group: kenny_arm
-  joint_model_group_pose: rest
+  joint_model_group: arm
+  joint_model_group_pose: ready
 # Settings for ros_control_boilerplate control loop
 generic_hw_control_loop:
   loop_hz: 300
@@ -9,7 +9,6 @@ generic_hw_control_loop:
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-    - virtual_joint
     - joint_reel_link1
     - joint_camera_z_rotation
     - joint_camera_y_rotation
@@ -25,7 +24,7 @@ joint_state_controller:
   publish_rate: 50
 controller_list:
   []
-arm_controller:
+arm_position_controller:
   type: position_controllers/JointPositionController
   joints:
     - joint_reel_link1

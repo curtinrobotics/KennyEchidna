@@ -1,9 +1,9 @@
 controller_list:
-  - name: fake_kenny_arm_controller
+  - name: fake_arm_controller
     joints:
       - joint_reel_link1
       - joint_link1_link2
       - joint_link2_link3
 initial:  # Define initial robot poses.
-  - group: kenny_arm
-    pose: rest
+  - group: arm
+    pose: ready
