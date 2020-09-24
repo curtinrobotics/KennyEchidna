@@ -32,7 +32,7 @@
       <geometry>
         <box size="1.176 0.444 0.308"/>
       </geometry>
-      <origin xyz="0 0 0.204"/>
+      <origin xyz="0 0 0.2"/>
       <material name="yellow"/>
     </visual>
     <collision>
@@ -49,7 +49,7 @@
   </joint>
   <link name="inertial_link">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.204"/>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
       <mass value="1"/>
       <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
     </inertial>
@@ -59,11 +59,16 @@
     <parent link="base_link"/>
     <child link="inertial_link"/>
   </joint>
-  <link name="wheel_right">
+  <!-- <link name="dummy"></link>
+    <joint name="dummy_joint" type="fixed">
+      <parent link="dummy"/>
+      <child link="inertial_link"/>
+    </joint> -->
+  <link name="wheel_rfront">
     <visual>
       <geometry>
         <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-        <cylinder length="0.12" radius="0.169"/>
+        <cylinder length="0.12" radius="0.2"/>
       </geometry>
       <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="black"/>
@@ -71,27 +76,27 @@
     <collision>
       <geometry>
         <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-        <cylinder length="0.12" radius="0.169"/>
+        <cylinder length="0.12" radius="0.2"/>
       </geometry>
       <!-- <origin xyz="0 0 0"/> -->
     </collision>
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.154"/>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
       <mass value="1"/>
       <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
-  <joint name="joint_base_wheel_right" type="continuous">
+  <joint name="joint_base_wheel_rfront" type="continuous">
     <parent link="base_link"/>
-    <child link="wheel_right"/>
-    <origin xyz="0 0.282 0.119"/>
+    <child link="wheel_rfront"/>
+    <origin xyz="0.3 0.282 0.046"/>
     <axis xyz="0 1 0"/>
   </joint>
-  <link name="wheel_left">
+  <link name="wheel_rback">
     <visual>
       <geometry>
         <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-        <cylinder length="0.12" radius="0.169"/>
+        <cylinder length="0.12" radius="0.2"/>
       </geometry>
       <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="black"/>
@@ -99,66 +104,156 @@
     <collision>
       <geometry>
         <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-        <cylinder length="0.12" radius="0.169"/>
+        <cylinder length="0.12" radius="0.2"/>
       </geometry>
       <!-- <origin xyz="0 0 0"/> -->
     </collision>
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.154"/>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
       <mass value="1"/>
       <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
-  <joint name="joint_base_wheel_left" type="continuous">
+  <joint name="joint_base_wheel_rback" type="continuous">
     <parent link="base_link"/>
-    <child link="wheel_left"/>
-    <origin xyz="0 -0.282 0.119"/>
+    <child link="wheel_rback"/>
+    <origin xyz="-0.3 0.282 0.046"/>
     <axis xyz="0 1 0"/>
   </joint>
-  <transmission name="tran_base_wheel_right">
+  <link name="wheel_lfront">
+    <visual>
+      <geometry>
+        <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+        <cylinder length="0.12" radius="0.2"/>
+      </geometry>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+        <cylinder length="0.12" radius="0.2"/>
+      </geometry>
+      <!-- <origin xyz="0 0 0"/> -->
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <mass value="1"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <joint name="joint_base_wheel_lfront" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_lfront"/>
+    <origin xyz="0.3 -0.282 0.046"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <link name="wheel_lback">
+    <visual>
+      <geometry>
+        <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+        <cylinder length="0.12" radius="0.2"/>
+      </geometry>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
+        <cylinder length="0.12" radius="0.2"/>
+      </geometry>
+      <!-- <origin xyz="0 0 0"/> -->
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <mass value="1"/>
+      <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <joint name="joint_base_wheel_lback" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_lback"/>
+    <origin xyz="-0.3 -0.282 0.046"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  <transmission name="tran_base_wheel_rfront">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_base_wheel_right">
+    <joint name="joint_base_wheel_rfront">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_base_wheel_right">
+    <actuator name="motor_base_wheel_rfront">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="tran_base_wheel_left">
+  <transmission name="tran_base_wheel_rback">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_base_wheel_left">
+    <joint name="joint_base_wheel_rback">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_base_wheel_left">
+    <actuator name="motor_base_wheel_rback">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran_base_wheel_lfront">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_base_wheel_lfront">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_base_wheel_lfront">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="tran_base_wheel_lback">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint_base_wheel_lback">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_base_wheel_lback">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <gazebo reference="base_link">
     <material>Gazebo/Yellow</material>
   </gazebo>
-  <gazebo reference="wheel_right">
+  <gazebo reference="wheel_rfront">
     <material>Gazebo/Black</material>
   </gazebo>
-  <gazebo reference="wheel_left">
+  <gazebo reference="wheel_rback">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="wheel_lfront">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="wheel_lback">
     <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="inertial_link"/>
+  <!-- <gazebo reference="dummy"/> -->
   <gazebo reference="base_footprint"/>
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
-  <gazebo reference="joint_base_wheel_left">
-    <mu1>0.2</mu1>
-    <mu1>0.2</mu1>
+  <gazebo reference="joint_base_wheel_lfront">
+    <mu1>100.0</mu1>
+    <mu2>50.0</mu2>
   </gazebo>
-  <gazebo reference="joint_base_wheel_right">
-    <mu1>0.2</mu1>
-    <mu1>0.2</mu1>
+  <gazebo reference="joint_base_wheel_lback">
+    <mu1>100.0</mu1>
+    <mu2>50.0</mu2>
+  </gazebo>
+  <gazebo reference="joint_base_wheel_rfront">
+    <mu1>100.0</mu1>
+    <mu2>50.0</mu2>
+  </gazebo>
+  <gazebo reference="joint_base_wheel_rback">
+    <mu1>100.0</mu1>
+    <mu2>50.0</mu2>
   </gazebo>
   <gazebo reference="inertial_joint"/>
+  <!-- <gazebo reference="dummy_joint"/> -->
   <gazebo reference="base_footprint_joint"/>
   <joint name="arm_mount_joint" type="fixed">
     <parent link="base_link"/>
     <child link="reel"/>
-    <origin xyz="0.0 0 0.403"/>
+    <origin xyz="0.0 0 0.399"/>
   </joint>
   <!-- params="parent *origin"> -->
   <link name="reel">
