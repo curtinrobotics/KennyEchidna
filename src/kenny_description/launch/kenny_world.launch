@@ -15,17 +15,18 @@
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="headless" value="$(arg headless)"/>
-    <remap from="tf" to="gazebo_tf"/>
+    <!-- <remap from="tf" to="gazebo_tf"/> -->
   </include>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
-    <!-- <remap from="/joint_states" to="/kenny/joint_states" /> -->
+    <remap from="/joint_states" to="/kenny/joint_states" />
   </node>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-  </node> 
+    <remap from="/joint_states" to="/kenny/joint_states" />
+  </node>  -->
 
   <param name="robot_description" 
         command="$(find xacro)/xacro $(arg model)" />

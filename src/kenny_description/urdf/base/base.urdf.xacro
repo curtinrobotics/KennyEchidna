@@ -11,11 +11,13 @@
   <xacro:property name="base_width" value="0.444" />
   <xacro:property name="base_depth" value="0.308" />
 
-  <xacro:property name="off_floor" value="0.05" />
 
   <xacro:property name="wheel_length" value="1.135" />
   <xacro:property name="wheel_width" value="0.12" />
   <xacro:property name="wheel_depth" value="0.338" />
+  <xacro:property name="wheel_rad" value="0.2" />
+
+  <xacro:property name="off_floor" value="${wheel_rad - base_depth/2}" />
 
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
@@ -27,7 +29,7 @@
       <visual>
         <geometry>
           <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-            <cylinder length="${wheel_width}" radius="${wheel_depth/2}"/>
+            <cylinder length="${wheel_width}" radius="${wheel_rad}"/>
         </geometry>
         <origin xyz="0 0 0" rpy="1.57 0 0"/>
         <material name="black"/>
@@ -36,13 +38,13 @@
       <collision>
         <geometry>
             <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
-            <cylinder length="${wheel_width}" radius="${wheel_depth/2}"/>
+            <cylinder length="${wheel_width}" radius="${wheel_rad}"/>
         </geometry>
         <!-- <origin xyz="0 0 0"/> -->
       </collision>
 
       <inertial>
-        <origin xyz="0 0 ${+0.5*base_depth}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${wheel_rad}" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
@@ -51,7 +53,7 @@
     <joint name="joint_base_${name}" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/>
-      <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${-off_floor+wheel_depth/2}" />
+      <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${off_floor}" />
       <axis xyz="0 1 0"/>
     </joint>
   </xacro:macro>
@@ -96,6 +98,12 @@
       <child link="inertial_link" />
     </joint>
     
+    <!-- <link name="dummy"></link>
+    <joint name="dummy_joint" type="fixed">
+      <parent link="dummy"/>
+      <child link="inertial_link"/>
+    </joint> -->
+
     <xacro:wheel name="wheel_right" reflect="1" />
     <xacro:wheel name="wheel_left" reflect="-1"/>
     

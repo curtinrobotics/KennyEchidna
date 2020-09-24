@@ -16,21 +16,23 @@
     </gazebo>
 
     <gazebo reference="inertial_link"/>
+    <!-- <gazebo reference="dummy"/> -->
     <gazebo reference="base_footprint"/>
 
     <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
     <gazebo reference="joint_base_wheel_left">
-      <mu1>0.2</mu1>
-      <mu1>0.2</mu1>
+      <mu1>100.0</mu1>
+      <mu2>50.0</mu2>
     </gazebo>
 
     <gazebo reference="joint_base_wheel_right">
-      <mu1>0.2</mu1>
-      <mu1>0.2</mu1>
+      <mu1>100.0</mu1>
+      <mu2>50.0</mu2>
     </gazebo>
 
     <gazebo reference="inertial_joint"/>
+    <!-- <gazebo reference="dummy_joint"/> -->
     <gazebo reference="base_footprint_joint"/>
 
 
