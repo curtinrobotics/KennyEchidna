@@ -3,8 +3,8 @@
 
   <xacro:macro name="base_gazebo">
 
-    <xacro:property name="ground_friction" value="100.0" />
-    <xacro:property name="wheel_friction" value="50.0" />
+    <xacro:property name="ground_friction" value="0.5" />
+    <xacro:property name="wheel_friction" value="0.5" />
 
     <gazebo reference="base_link">
       <material>Gazebo/Yellow</material>
@@ -31,19 +31,19 @@
     <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
     <gazebo reference="joint_base_wheel_lfront">
-      <mu1>${ground_friction}</mu1>
+      <mu>${ground_friction}</mu>
       <mu2>${wheel_friction}</mu2>
     </gazebo>
     <gazebo reference="joint_base_wheel_lback">
-      <mu1>${ground_friction}</mu1>
+      <mu>${ground_friction}</mu>
       <mu2>${wheel_friction}</mu2>
     </gazebo>
     <gazebo reference="joint_base_wheel_rfront">
-      <mu1>${ground_friction}</mu1>
+      <mu>${ground_friction}</mu>
       <mu2>${wheel_friction}</mu2>
     </gazebo>
     <gazebo reference="joint_base_wheel_rback">
-      <mu1>${ground_friction}</mu1>
+      <mu>${ground_friction}</mu>
       <mu2>${wheel_friction}</mu2>
     </gazebo>
 

@@ -44,9 +44,9 @@
       </collision>
 
       <inertial>
-        <origin xyz="0 0 ${wheel_rad}" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
-        <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
       </inertial>
     </link>
     
