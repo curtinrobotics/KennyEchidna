@@ -1,10 +1,17 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
 
-  <xacro:macro name="base_gazebo">
+  <xacro:macro name="wheel_gazebo" params="name">
+    <gazebo reference="name">
+      <mu1>100.0</mu1>
+      <mu2>50.0</mu2>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+    </gazebo>
+  </xacro:macro>
 
-    <xacro:property name="ground_friction" value="0.5" />
-    <xacro:property name="wheel_friction" value="0.5" />
+
+  <xacro:macro name="base_gazebo">
 
     <gazebo reference="base_link">
       <material>Gazebo/Yellow</material>
@@ -28,25 +35,10 @@
     <!-- <gazebo reference="dummy"/> -->
     <gazebo reference="base_footprint"/>
 
-    <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
-
-    <gazebo reference="joint_base_wheel_lfront">
-      <mu>${ground_friction}</mu>
-      <mu2>${wheel_friction}</mu2>
-    </gazebo>
-    <gazebo reference="joint_base_wheel_lback">
-      <mu>${ground_friction}</mu>
-      <mu2>${wheel_friction}</mu2>
-    </gazebo>
-    <gazebo reference="joint_base_wheel_rfront">
-      <mu>${ground_friction}</mu>
-      <mu2>${wheel_friction}</mu2>
-    </gazebo>
-    <gazebo reference="joint_base_wheel_rback">
-      <mu>${ground_friction}</mu>
-      <mu2>${wheel_friction}</mu2>
-    </gazebo>
-
+    <xacro:wheel_gazebo name="joint_base_wheel_lfront"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_lback"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_rfront"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_rback"/>
 
     <gazebo reference="inertial_joint"/>
     <!-- <gazebo reference="dummy_joint"/> -->

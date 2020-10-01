@@ -31,7 +31,7 @@
           <!-- <box size="${wheel_length} ${wheel_width} ${wheel_depth}"/> -->
             <cylinder length="${wheel_width}" radius="${wheel_rad}"/>
         </geometry>
-        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="black"/>
       </visual>
 
@@ -45,16 +45,16 @@
 
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="1"/>
-        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+        <mass value="2"/>
+        <inertia ixx="0.02467" ixy="0.0" ixz="0.0" iyy="0.04411" iyz="0.0" izz="0.02467"/>
       </inertial>
     </link>
     
     <joint name="joint_base_${name}" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/>
-      <origin xyz="${frontback * wheel_sep/2} ${sidereflect * 0.5*(base_width+wheel_width)} ${off_floor}" />
-      <axis xyz="0 1 0"/>
+      <origin xyz="${frontback * wheel_sep/2} ${sidereflect * 0.5*(base_width+wheel_width)} ${off_floor}" rpy="1.57 0 0"/>
+      <axis xyz="0 0 1"/>
     </joint>
   </xacro:macro>
 
