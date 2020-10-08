@@ -86,12 +86,12 @@
       </inertial>
     </link>
 
-    <joint name="joint_reel_link1" type="continuous">
+    <joint name="joint_reel_link1" type="revolute">
         <parent link="reel"/>
         <child link="arm_link1"/>
         <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
-        <!-- <limit effort="1000.0" lower="0" upper="0" velocity="0"/> -->
+        <limit effort="1000.0" lower="-20" upper="20" velocity="0"/>
     </joint>
 
 

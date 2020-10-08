@@ -26,10 +26,11 @@
 
   <xacro:kenny_base />
 
-  <joint name="arm_mount_joint" type="fixed">
+  <joint name="arm_mount_joint" type="revolute">
     <parent link="base_link"/>
     <child link="reel"/>
     <origin xyz="${reel_base_offset} 0 ${base_depth+off_floor+0.5*reel_length}"/>
+    <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
   </joint>
 
   <!-- <xacro:kenny_arm parent="base_link">
