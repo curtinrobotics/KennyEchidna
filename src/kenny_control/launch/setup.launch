@@ -17,6 +17,11 @@
     <remap from="/joint_states" to="/kenny/joint_states" />
   </node> 
 
+  <!-- launch gazebo world if useGazebo -->
+  <group if="$(arg useGazebo)">
+    <include file="$(find kenny_description)/launch/kenny_world.launch"/>
+    <include file="$(find kenny_control)/launch/controller_spawner.launch"/>
+  </group>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
