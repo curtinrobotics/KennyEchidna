@@ -16,6 +16,8 @@
   <xacro:property name="wheel_rad" value="0.2" />
   <xacro:property name="wheel_sep" value="0.6" />
 
+  <xacro:property name="caster_rad" value="${wheel_rad - (base_depth/2)}"/>
+
   <!-- <xacro:property name="off_floor" value="${wheel_rad - base_depth/2}" /> -->
   <xacro:property name="off_floor" value="${wheel_rad}" />
 
@@ -61,6 +63,34 @@
     </joint>
   </xacro:macro>
 
+  <xacro:macro name="caster" params="name reflect">
+    <link name="${name}">
+      <visual>
+        <origin xyz="0 0 0"/>
+        <geometry>
+          <sphere radius="${caster_rad}"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <sphere radius="${caster_rad}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.02467" ixy="0.0" ixz="0.0" iyy="0.04411" iyz="0.0" izz="0.02467"/>
+      </inertial>
+    </link>
+    <joint name="joint_base_${name}" type="revolute">
+      <parent link="base_link"/>
+      <child link="${name}"/>
+      <origin xyz="${reflect*(base_length/2-caster_rad)} 0 ${-base_depth/2}"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="1000" lower="0" upper="0" velocity="0"/>
+    </joint>
+  </xacro:macro>
+
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -94,13 +124,13 @@
 
     <link name="inertial_link">
       <inertial>
-        <origin xyz="0 0 ${off_floor+0.5*base_depth}" rpy="0 0 0"/>
-        <mass value="1"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="200"/>
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
     <joint name="inertial_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 ${off_floor+0.5*base_depth}" rpy="0 0 0"/>
       <parent link="base_link" />
       <child link="inertial_link" />
     </joint>
@@ -129,6 +159,8 @@
     <xacro:kenny_wheel_joint_transmission name="base_wheel_lfront"/>
     <xacro:kenny_wheel_joint_transmission name="base_wheel_lback"/> -->
 
+    <xacro:caster name="caster_front" reflect="1"/>
+    <xacro:caster name="caster_back" reflect="-1"/>
 
     <!-- Gazebo Macro -->
     <xacro:base_gazebo/>

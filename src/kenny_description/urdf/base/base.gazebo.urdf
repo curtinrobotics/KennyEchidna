@@ -10,6 +10,14 @@
     </gazebo>
   </xacro:macro>
 
+  <xacro:macro name="caster_gazebo" params="name">
+    <gazebo reference="name">
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+      <!-- <kp value="10000000.0"/>
+      <kd value="1.0"/> -->
+    </gazebo>
+  </xacro:macro>
 
   <xacro:macro name="base_gazebo">
 
@@ -22,6 +30,13 @@
     </gazebo>
     <gazebo reference="wheel_left">
       <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="caster_front">
+      <material>Gazebo/Yellow</material>
+    </gazebo>
+    <gazebo reference="caster_back">
+      <material>Gazebo/Yellow</material>
     </gazebo>
 
     <!-- 4 Wheel Kenny -->
@@ -43,10 +58,15 @@
     <!-- <gazebo reference="dummy"/> -->
     <gazebo reference="base_footprint"/>
 
-    <xacro:wheel_gazebo name="joint_base_wheel_lfront"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_left"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_right"/>
+
+    <xacro:caster_gazebo name="joint_base_caster_front"/>
+    <xacro:caster_gazebo name="joint_base_caster_back"/>
+    <!-- <xacro:wheel_gazebo name="joint_base_wheel_lfront"/>
     <xacro:wheel_gazebo name="joint_base_wheel_lback"/>
     <xacro:wheel_gazebo name="joint_base_wheel_rfront"/>
-    <xacro:wheel_gazebo name="joint_base_wheel_rback"/>
+    <xacro:wheel_gazebo name="joint_base_wheel_rback"/> -->
 
     <gazebo reference="inertial_joint"/>
     <!-- <gazebo reference="dummy_joint"/> -->
