@@ -24,8 +24,8 @@ kenny:
 
   drivebase_controller:
     type: "diff_drive_controller/DiffDriveController"
-    left_wheel: ['joint_base_wheel_lfront', 'joint_base_wheel_lback']
-    right_wheel: ['joint_base_wheel_rfront', 'joint_base_wheel_rback']
+    left_wheel: ['joint_base_wheel_left']
+    right_wheel: ['joint_base_wheel_right']
     publish_rate: 50
     pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
     twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]

@@ -20,7 +20,9 @@
   <!-- launch gazebo world if useGazebo -->
   <group if="$(arg useGazebo)">
     <include file="$(find kenny_description)/launch/kenny_world.launch"/>
-    <include file="$(find kenny_control)/launch/controller_spawner.launch"/>
+    <include file="$(find kenny_control)/launch/controller_spawner.launch">
+      <arg name="showSteeringPlugin" value="$(arg showSteeringPlugin)"/>
+    </include>
   </group>
 
   <!-- push robot_description to factory and spawn robot in gazebo -->

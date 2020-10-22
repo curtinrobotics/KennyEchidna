@@ -17,7 +17,15 @@
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="wheel_rfront">
+    <gazebo reference="wheel_right">
+      <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="wheel_left">
+      <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- 4 Wheel Kenny -->
+    <!-- <gazebo reference="wheel_rfront">
       <material>Gazebo/Black</material>
     </gazebo>
     <gazebo reference="wheel_rback">
@@ -29,7 +37,7 @@
     </gazebo>
     <gazebo reference="wheel_lback">
       <material>Gazebo/Black</material>
-    </gazebo>
+    </gazebo> -->
 
     <gazebo reference="inertial_link"/>
     <!-- <gazebo reference="dummy"/> -->

@@ -16,13 +16,15 @@
   <xacro:property name="wheel_rad" value="0.2" />
   <xacro:property name="wheel_sep" value="0.6" />
 
-  <xacro:property name="off_floor" value="${wheel_rad - base_depth/2}" />
+  <!-- <xacro:property name="off_floor" value="${wheel_rad - base_depth/2}" /> -->
+  <xacro:property name="off_floor" value="${wheel_rad}" />
 
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
 
-  <xacro:macro name="wheel" params="name sidereflect frontback">
+  <!-- <xacro:macro name="wheel" params="name sidereflect frontback"> -->
+  <xacro:macro name="wheel" params="name reflect">
     <link name="${name}">
       
       <visual>
@@ -52,7 +54,9 @@
     <joint name="joint_base_${name}" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/>
-      <origin xyz="${frontback * wheel_sep/2} ${sidereflect * 0.5*(base_width+wheel_width)} ${off_floor}" rpy="1.57 0 0"/>
+      <!-- <origin xyz="${frontback * wheel_sep/2} ${sidereflect * 0.5*(base_width+wheel_width)} ${off_floor}" rpy="1.57 0 0"/> -->
+      <!-- <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} ${off_floor}" rpy="1.57 0 0"/> -->
+      <origin xyz="0 ${reflect * 0.5*(base_width+wheel_width)} 0" rpy="1.57 0 0"/>
       <axis xyz="0 0 1"/>
     </joint>
   </xacro:macro>
@@ -61,14 +65,17 @@
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="kenny_base" >
-    <link name="base_footprint"/>
+    <link name="base_footprint">
+      <origin xyz="0 0 0"/>
+    </link>
 
     <link name="base_link">
       <visual>
         <geometry>
             <box size="${base_length} ${base_width} ${base_depth}"/>
         </geometry>
-        <origin xyz="0 0 ${off_floor+base_depth/2}" />
+        <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
+        <origin xyz="0 0 0"/>
         <material name="yellow"/>
       </visual>
       <collision>
@@ -82,6 +89,7 @@
     <joint name="base_footprint_joint" type="fixed">
       <parent link="base_link"/>
       <child link="base_footprint"/>
+      <origin xyz="0 0 ${off_floor+base_depth/2}" />
     </joint>
 
     <link name="inertial_link">
@@ -103,16 +111,23 @@
       <child link="inertial_link"/>
     </joint> -->
 
-    <xacro:wheel name="wheel_rfront" sidereflect="1" frontback="1"/>
+    <!-- 4 Wheel Kenny -->
+    <xacro:wheel name="wheel_right" reflect="1" />
+    <xacro:wheel name="wheel_left" reflect="-1"/>
+    <xacro:kenny_wheel_joint_transmission name="base_wheel_right"/>
+    <xacro:kenny_wheel_joint_transmission name="base_wheel_left"/>
+
+    <!-- 4 Wheel Kenny -->
+    <!-- <xacro:wheel name="wheel_rfront" sidereflect="1" frontback="1"/>
     <xacro:wheel name="wheel_rback" sidereflect="1" frontback="-1"/>
     <xacro:wheel name="wheel_lfront" sidereflect="-1" frontback="1"/>
     <xacro:wheel name="wheel_lback" sidereflect="-1" frontback="-1"/>
-    
+     -->
     <!-- Transmission Macros for wheels -->
-    <xacro:kenny_wheel_joint_transmission name="base_wheel_rfront"/>
+    <!-- <xacro:kenny_wheel_joint_transmission name="base_wheel_rfront"/>
     <xacro:kenny_wheel_joint_transmission name="base_wheel_rback"/>
     <xacro:kenny_wheel_joint_transmission name="base_wheel_lfront"/>
-    <xacro:kenny_wheel_joint_transmission name="base_wheel_lback"/>
+    <xacro:kenny_wheel_joint_transmission name="base_wheel_lback"/> -->
 
 
     <!-- Gazebo Macro -->
