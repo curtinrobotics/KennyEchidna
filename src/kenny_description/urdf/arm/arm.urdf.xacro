@@ -51,7 +51,6 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-
     <!-- fixed joints do not exist in gazebo models (SDF file format), 
          fixed joint is now revolute with 0 degrees of motion -->
     <!-- <joint name="joint_base_reel" type="revolute">
