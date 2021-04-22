@@ -21,30 +21,26 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
-    <gazebo refeence="joint_base_reel">
-      <!-- <dynamics damping="0.7"/> -->
+    <gazebo reference="J3">
+      <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="joint_reel_link1">
-      <!-- <parent link="${parent}"/>
-      <child link="reel"/>
-      <axis xyz="0 0 1"/>
-      <xacro:insert_block name="origin" /> -->
+    <gazebo reference="J0">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
 
-    <gazebo reference="joint_link1_link2">
+    <gazebo reference="J1">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="joint_link2_link3">
+    <gazebo reference="J2">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>

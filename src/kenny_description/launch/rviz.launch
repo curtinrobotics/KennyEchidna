@@ -1,6 +1,6 @@
 <launch>
 
-  <!-- <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/> -->
+  <arg name="model" default="$(find kenny_description)/urdf/kenny.urdf"/>
   <arg name="rvizconfig" default="$(find kenny_description)/rviz/urdf.rviz" />
 
   <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >

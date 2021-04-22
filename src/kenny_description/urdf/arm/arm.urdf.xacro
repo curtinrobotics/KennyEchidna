@@ -26,10 +26,40 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
-  <xacro:macro name="kenny_arm" > <!-- params="parent *origin"> -->
+  <xacro:macro name="kenny_arm" params="parent"> <!-- params="parent *origin"> -->
+
+    <link name="dummy_reel">
+      <visual>
+        <geometry>
+          <cylinder length="${reel_length/4}" radius="${reel_rad}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="yellow"/>
+      </visual>
+
+      <collision>
+        <geometry>
+            <cylinder length="${reel_length}" radius="${reel_rad}"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0"/>
+      </inertial>
+    </link>
+    <joint name="dummy_J3" type="revolute">
+      <parent link="${parent}"/>
+      <child link="dummy_reel"/>
+      <axis xyz="0 0 0"/>
+      <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
+
+    </joint>
+
+
 
     <link name="reel">
-
       <visual>
         <geometry>
           <cylinder length="${reel_length}" radius="${reel_rad}"/>
@@ -51,15 +81,14 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-    <!-- fixed joints do not exist in gazebo models (SDF file format), 
-         fixed joint is now revolute with 0 degrees of motion -->
-    <!-- <joint name="joint_base_reel" type="revolute">
-      <parent link="${parent}"/>
+    <!-- joint between reel and base - allows for motorised reel -->
+    <joint name="J3" type="revolute">
+      <parent link="dummy_reel"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
-      <xacro:insert_block name="origin" />
-        <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
-    </joint> -->
+      <!-- <xacro:insert_block name="origin" /> -->
+      <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
+    </joint>
 
 
 
@@ -85,8 +114,9 @@
       </inertial>
     </link>
 
-    <joint name="joint_reel_link1" type="revolute">
-        <parent link="reel"/>
+    <!-- link between reel and link1 -->
+    <joint name="J0" type="revolute">
+        <parent link="dummy_reel"/>
         <child link="arm_link1"/>
         <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
@@ -118,7 +148,8 @@
       </inertial>
     </link>
 
-    <joint name="joint_link1_link2" type="revolute">
+    <!-- joint between link1 and link2 -->
+    <joint name="J1" type="revolute">
       <parent link="arm_link1"/>
       <child link="arm_link2"/>
       <axis xyz="0 1 0"/>
@@ -151,8 +182,8 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-
-    <joint name="joint_link2_link3" type="revolute">
+  <!-- joint between link 2 and link 3 -->
+    <joint name="J2" type="revolute">
       <parent link="arm_link2"/>
       <child link="arm_link3"/>
       <axis xyz="0 1 0"/>
@@ -163,9 +194,11 @@
 
 
     <!-- Transmission Macros -->
-    <xacro:kenny_arm_joint_transmission name="reel_link1"/>
-    <xacro:kenny_arm_joint_transmission name="link1_link2"/>
-    <xacro:kenny_arm_joint_transmission name="link2_link3"/>
+    <xacro:kenny_arm_joint_transmission name="J0"/>
+    <xacro:kenny_arm_joint_transmission name="J1"/>
+    <xacro:kenny_arm_joint_transmission name="J2"/>
+
+    <xacro:kenny_arm_joint_transmission name="J3"/>
 
     <!-- Gazebo Macro -->
     <xacro:kenny_arm_gazebo/>
