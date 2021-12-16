@@ -38,8 +38,8 @@
   </xacro:kenny_arm> -->
   <xacro:kenny_arm parent="base_link"/>
 
-  <xacro:camera_mechanism parent="arm_link1">
-    <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/>
+  <xacro:camera_mechanism parent="arm">
+    <origin xyz="${pan_arm_offset} 0 ${arm_depth/2}" rpy="0 0 0"/>
     <!-- <origin xyz="${pan_arm_offset} 0 0" rpy="0 0 0"/> -->
   </xacro:camera_mechanism>
 

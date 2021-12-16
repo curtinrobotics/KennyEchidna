@@ -9,10 +9,10 @@
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" ns="/kenny" args="drivebase_controller
-                                      J0_controller 
-                                      J1_controller 
-                                      J2_controller 
-                                      J3_controller 
+                                      shoulder_controller 
+                                      elbow_controller 
+                                      wrist_controller 
+                                      reel_joint_controller 
                                       joint_camera_z_rotation_controller 
                                       joint_camera_y_rotation_controller"/>
 

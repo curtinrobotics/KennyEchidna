@@ -7,40 +7,40 @@
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link1">
+    <gazebo reference="arm">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link2">
+    <gazebo reference="forearm">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link3">
+    <gazebo reference="hand">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
-    <gazebo reference="J3">
+    <gazebo reference="reel_joint">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="J0">
+    <gazebo reference="shoulder">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
 
-    <gazebo reference="J1">
+    <gazebo reference="elbow">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="J2">
+    <gazebo reference="wrist">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>

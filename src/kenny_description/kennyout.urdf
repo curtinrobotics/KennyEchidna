@@ -296,7 +296,7 @@
       <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0"/>
     </inertial>
   </link>
-  <joint name="dummy_J3" type="revolute">
+  <joint name="dummy_reel_joint" type="revolute">
     <parent link="base_link"/>
     <child link="dummy_reel"/>
     <axis xyz="0 0 0"/>
@@ -323,14 +323,14 @@
     </inertial>
   </link>
   <!-- joint between reel and base - allows for motorised reel -->
-  <joint name="J3" type="revolute">
+  <joint name="reel_joint" type="revolute">
     <parent link="dummy_reel"/>
     <child link="reel"/>
     <axis xyz="0 0 1"/>
     <!-- <xacro:insert_block name="origin" /> -->
     <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
   </joint>
-  <link name="arm_link1">
+  <link name="arm">
     <visual>
       <geometry>
         <box size="0.73 0.378 0.232"/>
@@ -349,15 +349,15 @@
       <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
-  <!-- link between reel and link1 -->
-  <joint name="J0" type="revolute">
+  <!-- link between reel and arm -->
+  <joint name="shoulder" type="revolute">
     <parent link="dummy_reel"/>
-    <child link="arm_link1"/>
+    <child link="arm"/>
     <origin rpy="0 0 0" xyz="-0.0 0 0.161"/>
     <axis xyz="0 0 1"/>
     <limit effort="1000.0" lower="-20" upper="20" velocity="0"/>
   </joint>
-  <link name="arm_link2">
+  <link name="forearm">
     <visual>
       <geometry>
         <box size="0.18 0.389 0.64"/>
@@ -377,16 +377,16 @@
       <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
-  <!-- joint between link1 and link2 -->
-  <joint name="J1" type="revolute">
-    <parent link="arm_link1"/>
-    <child link="arm_link2"/>
+  <!-- joint between arm and forearm -->
+  <joint name="elbow" type="revolute">
+    <parent link="arm"/>
+    <child link="forearm"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 -0.65 0" xyz="0.365 0 0"/>
-    <!-- <origin xyz="${link1_length/2-link2_depth/2} 0 0" rpy="0 0 0"/> -->
+    <!-- <origin xyz="${arm_length/2-forearm_depth/2} 0 0" rpy="0 0 0"/> -->
     <limit effort="1000.0" lower="0" upper="1.65" velocity="0.5"/>
   </joint>
-  <link name="arm_link3">
+  <link name="hand">
     <visual>
       <geometry>
         <box size="0.788 0.06 0.08"/>
@@ -407,68 +407,68 @@
     </inertial>
   </link>
   <!-- joint between link 2 and link 3 -->
-  <joint name="J2" type="revolute">
-    <parent link="arm_link2"/>
-    <child link="arm_link3"/>
+  <joint name="wrist" type="revolute">
+    <parent link="forearm"/>
+    <child link="hand"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 0" xyz="0 0 0.64"/>
     <limit effort="1000.0" lower="0" upper="0.84" velocity="0.5"/>
   </joint>
-  <transmission name="tran_J0">
+  <transmission name="tran_shoulder">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_J0">
+    <joint name="joint_shoulder">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_J0">
+    <actuator name="motor_shoulder">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="tran_J1">
+  <transmission name="tran_elbow">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_J1">
+    <joint name="joint_elbow">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_J1">
+    <actuator name="motor_elbow">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="tran_J2">
+  <transmission name="tran_wrist">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_J2">
+    <joint name="joint_wrist">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_J2">
+    <actuator name="motor_wrist">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="tran_J3">
+  <transmission name="tran_reel_joint">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_J3">
+    <joint name="joint_reel_joint">
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
-    <actuator name="motor_J3">
+    <actuator name="motor_reel_joint">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
   <gazebo reference="reel">
     <material>Gazebo/Yellow</material>
   </gazebo>
-  <gazebo reference="arm_link1">
+  <gazebo reference="arm">
     <material>Gazebo/Yellow</material>
   </gazebo>
-  <gazebo reference="arm_link2">
+  <gazebo reference="forearm">
     <material>Gazebo/Yellow</material>
   </gazebo>
-  <gazebo reference="arm_link3">
+  <gazebo reference="hand">
     <material>Gazebo/Yellow</material>
   </gazebo>
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
-  <gazebo refeence="J3">
+  <gazebo refeence="reel_joint">
     <!-- <dynamics damping="0.7"/> -->
     <mu1>0.2</mu1>
     <mu1>0.2</mu1>
   </gazebo>
-  <gazebo reference="J0">
+  <gazebo reference="shoulder">
     <!-- <parent link="${parent}"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
@@ -477,12 +477,12 @@
     <mu1>0.2</mu1>
     <mu1>0.2</mu1>
   </gazebo>
-  <gazebo reference="J1">
+  <gazebo reference="elbow">
     <dynamics damping="0.7"/>
     <mu1>0.2</mu1>
     <mu1>0.2</mu1>
   </gazebo>
-  <gazebo reference="J2">
+  <gazebo reference="wrist">
     <dynamics damping="0.7"/>
     <mu1>0.2</mu1>
     <mu1>0.2</mu1>
@@ -507,11 +507,11 @@
     </inertial>
   </link>
   <joint name="joint_camera_z_rotation" type="revolute">
-    <!-- <parent link="arm_link1"/> -->
-    <parent link="arm_link1"/>
+    <!-- <parent link="arm"/> -->
+    <parent link="arm"/>
     <child link="camera_pan"/>
     <axis xyz="0 0 1"/>
-    <!-- <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/> -->
+    <!-- <origin xyz="${pan_arm_offset} 0 ${arm_depth/2}" rpy="0 0 0"/> -->
     <origin rpy="0 0 0" xyz="0.12 0 0.116"/>
     <limit effort="1000.0" lower="-0.785475" upper="0.785475" velocity="0.5"/>
   </joint>

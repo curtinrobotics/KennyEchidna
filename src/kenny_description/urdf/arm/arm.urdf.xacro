@@ -7,18 +7,18 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
-  <xacro:property name="link1_length" value="0.73"/>
-  <xacro:property name="link1_width" value="0.378"/>
-  <xacro:property name="link1_depth" value="0.232"/>
+  <xacro:property name="arm_length" value="0.73"/>
+  <xacro:property name="arm_width" value="0.378"/>
+  <xacro:property name="arm_depth" value="0.232"/>
 
-  <xacro:property name="link2_length" value="0.64"/>
-  <xacro:property name="link2_width" value="0.389"/>
-  <xacro:property name="link2_depth" value="0.18"/>
-  <xacro:property name="link2_default_rotation" value="-0.65"/>
+  <xacro:property name="forearm_length" value="0.64"/>
+  <xacro:property name="forearm_width" value="0.389"/>
+  <xacro:property name="forearm_depth" value="0.18"/>
+  <xacro:property name="forearm_default_rotation" value="-0.65"/>
 
-  <xacro:property name="link3_length" value="0.788"/>
-  <xacro:property name="link3_width" value="0.06"/>
-  <xacro:property name="link3_depth" value="0.08"/>
+  <xacro:property name="hand_length" value="0.788"/>
+  <xacro:property name="hand_width" value="0.06"/>
+  <xacro:property name="hand_depth" value="0.08"/>
 
   <xacro:property name="reel_rad" value="0.199" />
   <xacro:property name="reel_length" value="0.09" />
@@ -49,7 +49,7 @@
         <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0"/>
       </inertial>
     </link>
-    <joint name="dummy_J3" type="revolute">
+    <joint name="dummy_reel_joint" type="revolute">
       <parent link="${parent}"/>
       <child link="dummy_reel"/>
       <axis xyz="0 0 0"/>
@@ -82,7 +82,7 @@
       </inertial>
     </link>
     <!-- joint between reel and base - allows for motorised reel -->
-    <joint name="J3" type="revolute">
+    <joint name="reel_joint" type="revolute">
       <parent link="dummy_reel"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
@@ -92,10 +92,10 @@
 
 
 
-    <link name="arm_link1">
+    <link name="arm">
       <visual>
         <geometry>
-          <box size="${link1_length} ${link1_width} ${link1_depth}"/>
+          <box size="${arm_length} ${arm_width} ${arm_depth}"/>
         </geometry>
         <material name="yellow"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -103,7 +103,7 @@
 
       <collision>
         <geometry>
-          <box size="${link1_length} ${link1_width} ${link1_depth}"/>
+          <box size="${arm_length} ${arm_width} ${arm_depth}"/>
         </geometry>
       </collision>
 
@@ -114,31 +114,31 @@
       </inertial>
     </link>
 
-    <!-- link between reel and link1 -->
-    <joint name="J0" type="revolute">
+    <!-- link between reel and arm -->
+    <joint name="shoulder" type="revolute">
         <parent link="dummy_reel"/>
-        <child link="arm_link1"/>
-        <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+link1_depth/2}" rpy="0 0 0"/>
+        <child link="arm"/>
+        <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+arm_depth/2}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <limit effort="1000.0" lower="-20" upper="20" velocity="0"/>
     </joint>
 
 
 
-    <link name="arm_link2">
+    <link name="forearm">
       <visual>
         <geometry>
-            <box size="${link2_depth} ${link2_width} ${link2_length}"/>
+            <box size="${forearm_depth} ${forearm_width} ${forearm_length}"/>
         </geometry>
-        <origin xyz="0 0 ${link2_length/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${forearm_length/2}" rpy="0 0 0"/>
         <material name="yellow"/>
       </visual>
 
       <collision>
         <geometry>
-            <box size="${link2_depth} ${link2_width} ${link2_length}"/>
+            <box size="${forearm_depth} ${forearm_width} ${forearm_length}"/>
         </geometry>
-        <origin xyz="0 0 ${link2_length/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${forearm_length/2}" rpy="0 0 0"/>
       </collision>
 
       <inertial>
@@ -148,32 +148,32 @@
       </inertial>
     </link>
 
-    <!-- joint between link1 and link2 -->
-    <joint name="J1" type="revolute">
-      <parent link="arm_link1"/>
-      <child link="arm_link2"/>
+    <!-- joint between arm and forearm -->
+    <joint name="elbow" type="revolute">
+      <parent link="arm"/>
+      <child link="forearm"/>
       <axis xyz="0 1 0"/>
-      <origin xyz="${link1_length/2} 0 0" rpy="0 ${link2_default_rotation} 0"/>
-      <!-- <origin xyz="${link1_length/2-link2_depth/2} 0 0" rpy="0 0 0"/> -->
+      <origin xyz="${arm_length/2} 0 0" rpy="0 ${forearm_default_rotation} 0"/>
+      <!-- <origin xyz="${arm_length/2-forearm_depth/2} 0 0" rpy="0 0 0"/> -->
       <limit effort="1000.0" lower="0" upper="1.65" velocity="0.5"/>
     </joint>
 
 
 
-    <link name="arm_link3">
+    <link name="hand">
       <visual>
         <geometry>
-          <box size="${link3_length} ${link3_width} ${link3_depth}"/>
+          <box size="${hand_length} ${hand_width} ${hand_depth}"/>
         </geometry>
-        <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
+        <origin xyz="${hand_length/2} 0 0" rpy="0 0 0"/>
         <material name="yellow"/>
       </visual>
 
       <collision>
         <geometry>
-          <box size="${link3_length} ${link3_width} ${link3_depth}"/>
+          <box size="${hand_length} ${hand_width} ${hand_depth}"/>
         </geometry>
-        <origin xyz="${link3_length/2} 0 0" rpy="0 0 0"/>
+        <origin xyz="${hand_length/2} 0 0" rpy="0 0 0"/>
       </collision>
 
       <inertial>
@@ -182,23 +182,23 @@
         <inertia ixx="0.2" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0.2"/>
       </inertial>
     </link>
-  <!-- joint between link 2 and link 3 -->
-    <joint name="J2" type="revolute">
-      <parent link="arm_link2"/>
-      <child link="arm_link3"/>
+  <!-- joint between forearm and hand -->
+    <joint name="wrist" type="revolute">
+      <parent link="forearm"/>
+      <child link="hand"/>
       <axis xyz="0 1 0"/>
-      <origin xyz="0 0 ${link2_length}" rpy="0 0 0"/>
+      <origin xyz="0 0 ${forearm_length}" rpy="0 0 0"/>
       <limit effort="1000.0" lower="0" upper="0.84" velocity="0.5"/>
     </joint>
 
 
 
     <!-- Transmission Macros -->
-    <xacro:kenny_arm_joint_transmission name="J0"/>
-    <xacro:kenny_arm_joint_transmission name="J1"/>
-    <xacro:kenny_arm_joint_transmission name="J2"/>
+    <xacro:kenny_arm_joint_transmission name="shoulder"/>
+    <xacro:kenny_arm_joint_transmission name="elbow"/>
+    <xacro:kenny_arm_joint_transmission name="wrist"/>
 
-    <xacro:kenny_arm_joint_transmission name="J3"/>
+    <xacro:kenny_arm_joint_transmission name="reel_joint"/>
 
     <!-- Gazebo Macro -->
     <xacro:kenny_arm_gazebo/>
