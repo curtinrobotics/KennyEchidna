@@ -21,11 +21,11 @@ namespace tr1cpp
         // base.joints[2].setMotorId(11);
 
 		// arm
-        arm.joints[0].name = "joint_reel_link1";
+        arm.joints[0].name = "shoulder";
         arm.joints[0].setMotorId(1);
-        arm.joints[1].name = "joint_link1_link2";
+        arm.joints[1].name = "elbow";
         arm.joints[1].setMotorId(2);
-        arm.joints[2].name = "joint_link2_link3";
+        arm.joints[2].name = "wrist";
         arm.joints[2].setMotorId(3);
 		
         // Camera

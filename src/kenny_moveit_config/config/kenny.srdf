@@ -10,67 +10,67 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="arm">
-        <joint name="joint_link1_link2" />
-        <joint name="joint_link2_link3" />
-        <joint name="joint_reel_link1" />
+        <joint name="joint_arm_forearm" />
+        <joint name="joint_forearm_hand" />
+        <joint name="joint_reel_arm" />
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
     <group_state name="ready" group="arm">
-        <joint name="joint_link1_link2" value="0.2826" />
-        <joint name="joint_link2_link3" value="0.3806" />
-        <joint name="joint_reel_link1" value="0" />
+        <joint name="joint_arm_forearm" value="0.2826" />
+        <joint name="joint_forearm_hand" value="0.3806" />
+        <joint name="joint_reel_arm" value="0" />
     </group_state>
     <group_state name="rest" group="arm">
-        <joint name="joint_link1_link2" value="0" />
-        <joint name="joint_link2_link3" value="0.84" />
-        <joint name="joint_reel_link1" value="0" />
+        <joint name="joint_arm_forearm" value="0" />
+        <joint name="joint_forearm_hand" value="0.84" />
+        <joint name="joint_reel_arm" value="0" />
     </group_state>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
-    <disable_collisions link1="arm_link1" link2="arm_link2" reason="Adjacent" />
-    <disable_collisions link1="arm_link1" link2="arm_link3" reason="Never" />
-    <disable_collisions link1="arm_link1" link2="base_link" reason="Never" />
-    <disable_collisions link1="arm_link1" link2="camera_pan" reason="Adjacent" />
-    <disable_collisions link1="arm_link1" link2="camera_tilt_block" reason="Default" />
-    <disable_collisions link1="arm_link1" link2="camera_tilt_holder" reason="Never" />
-    <disable_collisions link1="arm_link1" link2="reel" reason="Adjacent" />
-    <disable_collisions link1="arm_link1" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="arm_link1" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="arm_link2" link2="arm_link3" reason="Adjacent" />
-    <disable_collisions link1="arm_link2" link2="base_link" reason="Never" />
-    <disable_collisions link1="arm_link2" link2="camera_pan" reason="Default" />
-    <disable_collisions link1="arm_link2" link2="camera_tilt_block" reason="Default" />
-    <disable_collisions link1="arm_link2" link2="camera_tilt_holder" reason="Default" />
-    <disable_collisions link1="arm_link2" link2="reel" reason="Never" />
-    <disable_collisions link1="arm_link2" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="arm_link2" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="base_link" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="camera_pan" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="camera_tilt_block" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="camera_tilt_holder" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="reel" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="arm_link3" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="base_link" link2="camera_pan" reason="Never" />
-    <disable_collisions link1="base_link" link2="camera_tilt_block" reason="Never" />
-    <disable_collisions link1="base_link" link2="camera_tilt_holder" reason="Never" />
-    <disable_collisions link1="base_link" link2="reel" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="wheel_left" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="wheel_right" reason="Adjacent" />
-    <disable_collisions link1="camera_pan" link2="camera_tilt_block" reason="Adjacent" />
-    <disable_collisions link1="camera_pan" link2="camera_tilt_holder" reason="Never" />
-    <disable_collisions link1="camera_pan" link2="reel" reason="Never" />
-    <disable_collisions link1="camera_pan" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="camera_pan" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="camera_tilt_block" link2="camera_tilt_holder" reason="Adjacent" />
-    <disable_collisions link1="camera_tilt_block" link2="reel" reason="Never" />
-    <disable_collisions link1="camera_tilt_block" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="camera_tilt_block" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="camera_tilt_holder" link2="reel" reason="Never" />
-    <disable_collisions link1="camera_tilt_holder" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="camera_tilt_holder" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="reel" link2="wheel_left" reason="Never" />
-    <disable_collisions link1="reel" link2="wheel_right" reason="Never" />
-    <disable_collisions link1="wheel_left" link2="wheel_right" reason="Never" />
+    <disable_collisions arm="arm" forearm="forearm" reason="Adjacent" />
+    <disable_collisions arm="arm" forearm="hand" reason="Never" />
+    <disable_collisions arm="arm" forearm="base_link" reason="Never" />
+    <disable_collisions arm="arm" forearm="camera_pan" reason="Adjacent" />
+    <disable_collisions arm="arm" forearm="camera_tilt_block" reason="Default" />
+    <disable_collisions arm="arm" forearm="camera_tilt_holder" reason="Never" />
+    <disable_collisions arm="arm" forearm="reel" reason="Adjacent" />
+    <disable_collisions arm="arm" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="arm" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="forearm" forearm="hand" reason="Adjacent" />
+    <disable_collisions arm="forearm" forearm="base_link" reason="Never" />
+    <disable_collisions arm="forearm" forearm="camera_pan" reason="Default" />
+    <disable_collisions arm="forearm" forearm="camera_tilt_block" reason="Default" />
+    <disable_collisions arm="forearm" forearm="camera_tilt_holder" reason="Default" />
+    <disable_collisions arm="forearm" forearm="reel" reason="Never" />
+    <disable_collisions arm="forearm" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="forearm" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="hand" forearm="base_link" reason="Never" />
+    <disable_collisions arm="hand" forearm="camera_pan" reason="Never" />
+    <disable_collisions arm="hand" forearm="camera_tilt_block" reason="Never" />
+    <disable_collisions arm="hand" forearm="camera_tilt_holder" reason="Never" />
+    <disable_collisions arm="hand" forearm="reel" reason="Never" />
+    <disable_collisions arm="hand" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="hand" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="base_link" forearm="camera_pan" reason="Never" />
+    <disable_collisions arm="base_link" forearm="camera_tilt_block" reason="Never" />
+    <disable_collisions arm="base_link" forearm="camera_tilt_holder" reason="Never" />
+    <disable_collisions arm="base_link" forearm="reel" reason="Adjacent" />
+    <disable_collisions arm="base_link" forearm="wheel_left" reason="Adjacent" />
+    <disable_collisions arm="base_link" forearm="wheel_right" reason="Adjacent" />
+    <disable_collisions arm="camera_pan" forearm="camera_tilt_block" reason="Adjacent" />
+    <disable_collisions arm="camera_pan" forearm="camera_tilt_holder" reason="Never" />
+    <disable_collisions arm="camera_pan" forearm="reel" reason="Never" />
+    <disable_collisions arm="camera_pan" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="camera_pan" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="camera_tilt_block" forearm="camera_tilt_holder" reason="Adjacent" />
+    <disable_collisions arm="camera_tilt_block" forearm="reel" reason="Never" />
+    <disable_collisions arm="camera_tilt_block" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="camera_tilt_block" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="camera_tilt_holder" forearm="reel" reason="Never" />
+    <disable_collisions arm="camera_tilt_holder" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="camera_tilt_holder" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="reel" forearm="wheel_left" reason="Never" />
+    <disable_collisions arm="reel" forearm="wheel_right" reason="Never" />
+    <disable_collisions arm="wheel_left" forearm="wheel_right" reason="Never" />
 </robot>

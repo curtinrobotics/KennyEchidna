@@ -70,19 +70,24 @@ kenny:
 
 
   # ----------------- position controllers - arms
-  joint_reel_link1_controller:
+  shoulder_controller:
     type: position_controllers/JointPositionController
-    joint: joint_reel_link1
+    joint: shoulder
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint_link1_link2_controller:
+  elbow_controller:
     type: position_controllers/JointPositionController
-    joint: joint_link1_link2
+    joint: elbow
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint_link2_link3_controller:
+  wrist_controller:
     type: position_controllers/JointPositionController
-    joint: joint_link2_link3
+    joint: wrist
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  reel_joint_controller:
+    type: position_controllers/JointPositionController
+    joint: reel_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
 # ----------------- position controllers - camera mechanism
