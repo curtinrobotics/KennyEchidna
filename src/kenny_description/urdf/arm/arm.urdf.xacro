@@ -26,18 +26,19 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
-  <xacro:macro name="kenny_arm" params="parent"> <!-- params="parent *origin"> -->
+  <!-- <xacro:macro name="kenny_arm" params="parent"> params="parent *origin"> -->
+  <xacro:macro name="kenny_arm" params="parent *origin">
 
     <link name="dummy_reel">
-      <visual>
+      <!-- <visual>
         <geometry>
           <cylinder length="${reel_length/4}" radius="${reel_rad}"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="yellow"/>
-      </visual>
+      </visual> -->
 
-      <collision>
+      <!-- <collision>
         <geometry>
             <cylinder length="${reel_length}" radius="${reel_rad}"/>
         </geometry>
@@ -47,14 +48,15 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="1"/>
         <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0"/>
-      </inertial>
+      </inertial> -->
     </link>
     <joint name="dummy_reel_joint" type="revolute">
+      <!-- <parent link="base_link"/> -->
       <parent link="${parent}"/>
       <child link="dummy_reel"/>
-      <axis xyz="0 0 0"/>
+      <xacro:insert_block name="origin"/>
+      <axis xyz="0 0 1"/>
       <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
-
     </joint>
 
 
@@ -86,8 +88,9 @@
       <parent link="dummy_reel"/>
       <child link="reel"/>
       <axis xyz="0 0 1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <!-- <xacro:insert_block name="origin" /> -->
-      <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
+      <limit effort="1000.0" lower="-180" upper="180" velocity="2"/>
     </joint>
 
 
