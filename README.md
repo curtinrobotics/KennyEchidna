@@ -9,6 +9,9 @@ The joint origin defines the centre of the transform, the visual origin should b
 - If running on VMware and gazebo does not launch, turn of graphics driver(?) with `SVGA_VGPU10=0`
 
 
+## ROS2 Changes
+- `package.xml` <build_type>ament_cmake
+
 
 ## Packages Structure
 
