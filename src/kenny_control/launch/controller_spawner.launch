@@ -1,0 +1,34 @@
+<launch>
+
+  <arg name="showSteeringPlugin" default="false"/>
+  <arg name="launchRobotPublisher" default="false"/>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find kenny_control)/config/controllers.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/kenny" args="drivebase_controller
+                                      shoulder_controller 
+                                      elbow_controller 
+                                      wrist_controller 
+                                      reel_joint_controller 
+                                      joint_camera_z_rotation_controller 
+                                      joint_camera_y_rotation_controller"/>
+
+  
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <!-- <node if="$(arg launchRobotPublisher)" 
+        name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+    <remap from="/joint_states" to="/kenny/joint_states" />
+  </node> -->
+
+  <!-- Launch the rqt plugin for  -->
+  <node if="$(arg showSteeringPlugin)" 
+        name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/kenny/drivebase_controller/cmd_vel"/>
+  </node>
+
+</launch>

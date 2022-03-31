@@ -1,0 +1,12 @@
+kenny:
+  hardware_interface:
+     loop_hz: 10 # hz
+     joints:
+       - joint_base_wheel_left
+       - joint_base_wheel_right
+       - shoulder
+       - elbow
+       - wrist
+       - reel_joint
+       - joint_camera_z_rotation
+       - joint_camera_y_rotation

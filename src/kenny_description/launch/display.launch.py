@@ -20,8 +20,6 @@ def generate_launch_description():
     rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),
                                      description='Absolute path to rviz config file')
 
-    # robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration('model')]),
-    #                                    value_type=str)
 
     path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf'
     robot_state_publisher_node = Node(
@@ -33,12 +31,7 @@ def generate_launch_description():
             )
         }]
     )
-    # robot_state_publisher_node = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     parameters=[{'robot_description': robot_description}]
-    # )
-
+   
     # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
