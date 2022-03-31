@@ -11,6 +11,8 @@ The joint origin defines the centre of the transform, the visual origin should b
 
 ## ROS2 Changes
 - `package.xml` <build_type>ament_cmake
+- source the workspace `source install/setup.bash`
+
 
 
 ## Packages Structure

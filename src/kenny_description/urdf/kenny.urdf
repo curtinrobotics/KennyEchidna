@@ -16,7 +16,7 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ PARAMETERS -->
 
-  <xacro:property name="pi" value="3.1419" />
+  <!-- <xacro:property name="pi" value="3.1419" /> -->
 
   <xacro:property name="pan_arm_offset" value="0.12"/>
 
