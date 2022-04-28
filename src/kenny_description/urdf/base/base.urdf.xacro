@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   
-  <xacro:include filename="$(find kenny_description)/urdf/base/base.gazebo.urdf"/>
   <xacro:include filename="$(find kenny_description)/urdf/base/base.transmissions.xacro"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
@@ -163,7 +162,6 @@
     <xacro:caster name="caster_back" reflect="-1"/>
 
     <!-- Gazebo Macro -->
-    <xacro:base_gazebo/>
   </xacro:macro>
 
 </robot>

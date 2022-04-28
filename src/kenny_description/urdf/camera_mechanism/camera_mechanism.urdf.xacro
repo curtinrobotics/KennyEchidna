@@ -2,7 +2,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.transmission.urdf"/>
-  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.gazebo.urdf"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -102,8 +101,6 @@
     <!-- call macros for defining transmission of camera joints -->
     <xacro:camera_joint name="camera_z_rotation"/>
     <xacro:camera_joint name="camera_y_rotation"/>
-
-    <xacro:camera_mechanism_gazebo/>
 
   </xacro:macro>
 

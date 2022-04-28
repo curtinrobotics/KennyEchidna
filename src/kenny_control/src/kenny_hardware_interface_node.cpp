@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 
     ros::NodeHandle nh;
     nh.setCallbackQueue(&ros_queue);
-    kenny_hardware_interface::KennyHardwareInterface rhi(nh);
+    kenny_hardware_interface::KennySystemHardwareInterface rhi(nh);
 
     ros::MultiThreadedSpinner spinner(0);
     spinner.spin(&ros_queue);

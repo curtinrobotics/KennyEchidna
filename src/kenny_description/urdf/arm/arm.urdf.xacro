@@ -3,7 +3,6 @@
 <!-- <robot xmlns:xacro="http://www.ros.org/wiki/xacro"> -->
 
   <xacro:include filename="$(find kenny_description)/urdf/arm/arm.transmission.xacro"/>
-  <xacro:include filename="$(find kenny_description)/urdf/arm/arm.gazebo.urdf"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -202,9 +201,6 @@
     <xacro:kenny_arm_joint_transmission name="wrist"/>
 
     <xacro:kenny_arm_joint_transmission name="reel_joint"/>
-
-    <!-- Gazebo Macro -->
-    <xacro:kenny_arm_gazebo/>
 
   </xacro:macro>
 

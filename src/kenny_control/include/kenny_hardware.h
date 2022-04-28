@@ -15,7 +15,7 @@
 namespace kenny_hardware_interface
 {
     /// brief Hardware interface for a robot
-    class KennyHardware : public hardware_interface::RobotHW 
+    class KennySystemHardware : public hardware_interface::RobotHW 
     {
         protected:
             // Interfaces

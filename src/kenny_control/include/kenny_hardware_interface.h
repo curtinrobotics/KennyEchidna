@@ -26,11 +26,11 @@ namespace kenny_hardware_interface
     static const double POSITION_STEP_FACTOR = 10;
     static const double VELOCITY_STEP_FACTOR = 10;
 
-    class KennyHardwareInterface: public kenny_hardware_interface::KennyHardware
+    class KennySystemHardwareInterface: public kenny_hardware_interface::KennySystemHardware
     {
         public:
-            KennyHardwareInterface(ros::NodeHandle& nh);
-            ~KennyHardwareInterface();
+            KennySystemHardwareInterface(ros::NodeHandle& nh);
+            ~KennySystemHardwareInterface();
             void init();
             void update(const ros::TimerEvent& e);
             void read();

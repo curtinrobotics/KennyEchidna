@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
+  <xacro:arg name="use_sim" default="false" />
+
+  <!-- Enable setting arguments from the launch file -->
+  <xacro:arg name="use_fake_hardware" default="true" />
+  <xacro:arg name="fake_sensor_commands" default="false" />
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:include filename="$(find kenny_description)/urdf/kenny.urdf.xacro" />
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find kenny_description)/gazebo/kenny.gazebo.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find kenny_description)/gazebo/kenny.materials.xacro" />
+
+  <!-- Import kenny ros2_control description -->
+  <xacro:include filename="$(find kenny_description)/ros2_control/kenny_system.ros2_control.xacro" />
+
+  <xacro:kenny prefix="$(arg prefix)" />
+
+  <xacro:kenny_gazebo prefix="$(arg prefix)" />
+
+  <xacro:kenny_system
+    name="KennySystem" prefix="$(arg prefix)"
+    use_fake_hardware="$(arg use_fake_hardware)"
+    fake_sensor_commands="$(arg fake_sensor_commands)"/>
+
+</robot>

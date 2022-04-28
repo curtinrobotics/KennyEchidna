@@ -14,7 +14,7 @@ endif()
 ################################################################################
 find_package(ament_cmake REQUIRED)
 find_package(controller_manager REQUIRED)
-find_package(joint_state_controller REQUIRED)
+# find_package(joint_state_controller REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 
 ################################################################################
