@@ -117,12 +117,12 @@
     </link>
 
     <!-- link between reel and arm -->
-    <joint name="shoulder" type="revolute">
+    <joint name="shoulder" type="continuous">
         <parent link="dummy_reel"/>
         <child link="arm"/>
         <origin xyz="${-1*reel_base_offset} 0 ${reel_length/2+arm_depth/2}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit effort="1000.0" lower="-20" upper="20" velocity="0"/>
+        <limit effort="1000.0" velocity="0"/>
     </joint>
 
 

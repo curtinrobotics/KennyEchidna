@@ -3,7 +3,7 @@
 #     state:
 #       type: joint_state_controller/JointStateController
 #       publish_rate: 50
-#     position:
+#     velocity:
 #       YOUR_ROBOT_JOINT:
 #         type: effort_controllers/JointPositionController
 #         joint: YOUR_ROBOT_JOINT
@@ -20,7 +20,7 @@ kenny:
     state: joint_state_controller/JointStateController
     publish_rate: 50
 
-  # ----------------- position controllers - drivebase
+  # ----------------- velocity controllers - drivebase
 
   drivebase_controller:
     type: "diff_drive_controller/DiffDriveController"
@@ -69,35 +69,35 @@ kenny:
         # max_jerk               : 2.5  # rad/s^3
 
 
-  # ----------------- position controllers - arms
+  # ----------------- velocity controllers - arms
   shoulder_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: shoulder
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   elbow_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: elbow
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   wrist_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: wrist
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
   reel_joint_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: reel_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-# ----------------- position controllers - camera mechanism
+# ----------------- velocity controllers - camera mechanism
 
   joint_camera_z_rotation_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: joint_camera_z_rotation
     pid: {p: 100.0, i: 0.01, d: 10.0}
     
   joint_camera_y_rotation_controller:
-    type: position_controllers/JointPositionController
+    type: velocity_controllers/JointPositionController
     joint: joint_camera_y_rotation
     pid: {p: 100.0, i: 0.01, d: 10.0}

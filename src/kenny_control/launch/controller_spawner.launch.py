@@ -25,13 +25,12 @@ def generate_launch_description():
     # print(robot_description_content)
     # robot_description = {"robot_description": robot_description_content}
     robot_description = {'robot_description': ParameterValue(
-                            Command(['xacro ', str(path_to_urdf)]), value_type=str
-                        )
+                            Command(['xacro ', str(path_to_urdf)]), value_type=str)
         }
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("kenny_bringup"),
+            FindPackageShare("kenny_control"),
             "config",
             "controllers.yaml",
         ]
@@ -55,7 +54,7 @@ def generate_launch_description():
         output="both",
         parameters=[robot_description],
         remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+            ("/kenny/drivebase_controller/cmd_vel_unstamped", "/cmd_vel"),
         ],
     )
     rviz_node = Node(
@@ -75,7 +74,7 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["kenny_base_controller", "-c", "/controller_manager"],
+        arguments=["drivebase_controller", "-c", "/controller_manager"],
     )
 
     # Delay rviz start after `joint_state_broadcaster`
