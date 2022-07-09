@@ -16,6 +16,7 @@
           <param name="example_param_hw_stop_duration_sec">3.0</param>
         </xacro:unless>
       </hardware>
+
       <joint name="joint_base_wheel_left">
         <command_interface name="velocity">
           <param name="min">-1</param>
@@ -24,6 +25,7 @@
         <state_interface name="position"/>
         <state_interface name="velocity"/>
       </joint>
+      
       <joint name="joint_base_wheel_right">
         <command_interface name="velocity">
           <param name="min">-1</param>
@@ -32,6 +34,7 @@
         <state_interface name="position"/>
         <state_interface name="velocity"/>
       </joint>
+      
     </ros2_control>
 
   </xacro:macro>

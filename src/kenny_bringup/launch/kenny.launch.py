@@ -12,7 +12,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     # Get URDF via xacro
-    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf'
+    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny_system.urdf.xacro'
     # robot_description_content = Command(
     #     [
     #         PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -31,7 +31,7 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("kenny_bringup"),
+            FindPackageShare("kenny_control"),
             "config",
             "controllers.yaml",
         ]

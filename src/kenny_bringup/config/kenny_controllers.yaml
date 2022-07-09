@@ -22,7 +22,7 @@ kenny:
 
   # ----------------- velocity controllers - drivebase
 
-  drivebase_controller:
+  kenny_base_controller:
     type: "diff_drive_controller/DiffDriveController"
     left_wheel: ['joint_base_wheel_left']
     right_wheel: ['joint_base_wheel_right']

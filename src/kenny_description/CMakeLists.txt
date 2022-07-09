@@ -18,7 +18,8 @@ find_package(urdf REQUIRED)
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY meshes rviz urdf launch
+install(
+  DIRECTORY meshes rviz urdf launch ros2_control gazebo
   DESTINATION share/${PROJECT_NAME}
 )
 

@@ -8,7 +8,8 @@
   <xacro:arg name="fake_sensor_commands" default="false" />
   <xacro:arg name="prefix" default="" />
 
-  <xacro:include filename="$(find kenny_description)/urdf/kenny.urdf.xacro" />
+  <!-- <xacro:include filename="$(find kenny_description)/urdf/kenny.urdf.xacro" /> -->
+  <xacro:include filename="$(find kenny_description)/urdf/kenny_description.urdf" />
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find kenny_description)/gazebo/kenny.gazebo.xacro" />
@@ -19,7 +20,8 @@
   <!-- Import kenny ros2_control description -->
   <xacro:include filename="$(find kenny_description)/ros2_control/kenny_system.ros2_control.xacro" />
 
-  <xacro:kenny prefix="$(arg prefix)" />
+  
+  <xacro:kenny prefix="$(arg prefix)" /> <!-- kenny description macro -->
 
   <xacro:kenny_gazebo prefix="$(arg prefix)" />
 

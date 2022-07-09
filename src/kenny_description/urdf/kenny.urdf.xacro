@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
   <xacro:arg name="prefix" default="" />
 
-  <xacro:include filename="$(find kenny_description)/urdf/kenny_description.urdf.xacro" />
+  <xacro:include filename="$(find kenny_description)/urdf/kenny_description.urdf" />
 
   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
   <xacro:include filename="$(find kenny_description)/gazebo/kenny.gazebo.xacro" />
@@ -16,7 +16,8 @@
 
   <xacro:kenny prefix="$(arg prefix)" />
 
-
+  <!-- <ros2_control name="Kenny" type="system">
+  </ros2_control> -->
   <xacro:kenny_system name="KennySystem" prefix="$(arg prefix)" />
 
 </robot>
