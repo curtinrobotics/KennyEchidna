@@ -1,0 +1,103 @@
+# ROBOT:
+#   controller:
+#     state:
+#       type: joint_state_controller/JointStateController
+#       publish_rate: 50
+#     velocity:
+#       YOUR_ROBOT_JOINT:
+#         type: effort_controllers/JointPositionController
+#         joint: YOUR_ROBOT_JOINT
+#         pid: {p: 10.0, i: 0.0, d: 1.0}
+#       YOUR_OTHER_ROBOT_JOINT:
+#         type: effort_controllers/JointPositionController
+#         joint: YOUR_ROBOT_JOINT
+#         pid: {p: 5.0, i: 2.0, d: 1.0}
+
+kenny:
+
+  #------------- publish all joint states
+  joint_state_controller:
+    state: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # ----------------- velocity controllers - drivebase
+
+  kenny_base_controller:
+    type: "diff_drive_controller/DiffDriveController"
+    left_wheel: ['joint_base_wheel_left']
+    right_wheel: ['joint_base_wheel_right']
+    publish_rate: 50
+    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    cmd_vel_timeout: 0.25
+    velocity_rolling_window_size: 2
+
+    base_frame_id: base_link
+
+    # Wheel separation and diameter. These are both optional.
+    # diff_drive_controller will attempt to read either one or both from the
+    # URDF if not specified as a parameter
+    wheel_separation : 0.444
+    wheel_radius : 0.2
+
+    # Wheel separation and radius multipliers
+    # wheel_separation_multiplier: 1.0 # default: 1.0
+    # wheel_radius_multiplier    : 1.0 # default: 1.0
+
+    # Velocity commands timeout [s], default 0.5
+    cmd_vel_timeout: 0.25
+
+    # Velocity and acceleration limits
+    # Whenever a min_* is unspecified, default to -max_*
+    linear:
+      x:
+        has_velocity_limits    : true
+        max_velocity           : 1.0  # m/s
+        # min_velocity           : -0.5 # m/s
+        has_acceleration_limits: true
+        max_acceleration       : 3.0  # m/s^2
+        # min_acceleration       : -0.4 # m/s^2
+        # has_jerk_limits        : true
+        # max_jerk               : 5.0  # m/s^3
+    angular:
+      z:
+        has_velocity_limits    : true
+        max_velocity           : 2.0  # rad/s
+        has_acceleration_limits: true
+        max_acceleration       : 6.0  # rad/s^2
+        # has_jerk_limits        : true
+        # max_jerk               : 2.5  # rad/s^3
+
+
+  # ----------------- velocity controllers - arms
+  shoulder_controller:
+    type: velocity_controllers/JointPositionController
+    joint: shoulder
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  elbow_controller:
+    type: velocity_controllers/JointPositionController
+    joint: elbow
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  wrist_controller:
+    type: velocity_controllers/JointPositionController
+    joint: wrist
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  reel_joint_controller:
+    type: velocity_controllers/JointPositionController
+    joint: reel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+# ----------------- velocity controllers - camera mechanism
+
+  joint_camera_z_rotation_controller:
+    type: velocity_controllers/JointPositionController
+    joint: joint_camera_z_rotation
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+    
+  joint_camera_y_rotation_controller:
+    type: velocity_controllers/JointPositionController
+    joint: joint_camera_y_rotation
+    pid: {p: 100.0, i: 0.01, d: 10.0}

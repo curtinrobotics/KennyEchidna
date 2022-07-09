@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="kenny" params="prefix">
+
+    <!-- <author>
+      <name> Ilke Dincer </name> 
+    </author>
+
+    <description>
+      An URDF of Kenny the Echidna bomb disposal robot. 
+    </description> -->
+
+    <!-- <xacro:include filename="$(find kenny_description)/urdf/materials.xacro" />  -->
+    <xacro:include filename="$(find kenny_description)/urdf/base/base.urdf.xacro" /> 
+    <xacro:include filename="$(find kenny_description)/urdf/arm/arm.urdf.xacro" /> 
+    <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.urdf.xacro" /> 
+
+    <!--  ++++++++++++++++++++++++++++++++++++++++ PARAMETERS -->
+
+    <!-- <xacro:property name="pi" value="3.1419" /> -->
+
+    <xacro:property name="pan_arm_offset" value="0.12"/>
+
+
+    <!--  ++++++++++++++++++++++++++++++++++++++++ LINKS -->
+
+
+    <xacro:kenny_base />
+
+    <!-- <joint name="arm_mount_joint" type="revolute">
+      <parent link="base_link"/>
+      <child link="dummy_reel"/>
+      <origin xyz="${reel_base_offset} 0 ${base_depth/2+0.5*reel_length}"/>
+      <limit effort="1000.0" lower="0" upper="0" velocity="0"/>
+    </joint> -->
+
+    <xacro:kenny_arm parent="base_link">
+      <origin xyz="${reel_base_offset} 0 ${base_depth/2+0.5*reel_length}" rpy="0 0 0"/>
+    </xacro:kenny_arm>
+    <!-- <xacro:kenny_arm parent="base_link"/> -->
+
+    <xacro:camera_mechanism parent="arm">
+      <origin xyz="${pan_arm_offset} 0 ${-arm_depth/2}" rpy="0 0 0"/>
+      <!-- <origin xyz="${pan_arm_offset} 0 0" rpy="0 0 0"/> -->
+  </xacro:camera_mechanism>
+
+  </xacro:macro>
+
+</robot>

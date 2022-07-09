@@ -15,7 +15,7 @@ using joint_limits_interface::PositionJointSoftLimitsInterface;
 namespace kenny_hardware_interface
 {
     // Constructor
-    KennyHardwareInterface::KennyHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
+    KennySystemHardwareInterface::KennySystemHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
         init();
         controller_manager_.reset(new controller_manager::ControllerManager(this, nh_));
 
@@ -24,15 +24,15 @@ namespace kenny_hardware_interface
         ROS_DEBUG_STREAM_NAMED("constructor","Using loop freqency of " << loop_hz_ << " hz");
         
         ros::Duration update_freq = ros::Duration(1.0/loop_hz_);
-        non_realtime_loop_ = nh_.createTimer(update_freq, &KennyHardwareInterface::update, this);
+        non_realtime_loop_ = nh_.createTimer(update_freq, &KennySystemHardwareInterface::update, this);
     }
 
     // Destructor - ~ marks destructor
-    KennyHardwareInterface::~KennyHardwareInterface() {
+    KennySystemHardwareInterface::~KennySystemHardwareInterface() {
         // any clean up needed - closing file, freeing memory, etc.
     }
 
-    void KennyHardwareInterface::init() {
+    void KennySystemHardwareInterface::init() {
         // Get joint names
         nh_.getParam("/kenny/hardware_interface/joints", joint_names_);
         if (joint_names_.size() == 0)
@@ -92,7 +92,7 @@ namespace kenny_hardware_interface
         registerInterface(&positionJointSoftLimitsInterface);
     }
 
-    void KennyHardwareInterface::update(const ros::TimerEvent& e) {
+    void KennySystemHardwareInterface::update(const ros::TimerEvent& e) {
         _logInfo = "\n";
 		_logInfo += "Joint Position Command:\n";
 		for (int i = 0; i < num_joints_; i++)
@@ -111,7 +111,7 @@ namespace kenny_hardware_interface
 		//ROS_INFO_STREAM(_logInfo);
     }
 
-    void KennyHardwareInterface::read() {
+    void KennySystemHardwareInterface::read() {
 		_logInfo += "Joint State:\n";
 		for (int i = 0; i < num_joints_; i++)
 		{
@@ -130,7 +130,7 @@ namespace kenny_hardware_interface
 		}}
     }
 
-    void KennyHardwareInterface::write(ros::Duration elapsed_time)
+    void KennySystemHardwareInterface::write(ros::Duration elapsed_time)
 	{
 		positionJointSoftLimitsInterface.enforceLimits(elapsed_time);
 

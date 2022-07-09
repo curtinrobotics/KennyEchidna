@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   
-  <xacro:include filename="$(find kenny_description)/urdf/base/base.gazebo.urdf"/>
   <xacro:include filename="$(find kenny_description)/urdf/base/base.transmissions.xacro"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
@@ -95,6 +94,8 @@
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
   <xacro:macro name="kenny_base" >
+  <!-- footprint link is used for calculating distances between 
+        the robot and obstacles -->
     <link name="base_footprint">
       <origin xyz="0 0 0"/>
     </link>
@@ -104,7 +105,6 @@
         <geometry>
             <box size="${base_length} ${base_width} ${base_depth}"/>
         </geometry>
-        <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
         <origin xyz="0 0 0"/>
         <material name="yellow"/>
       </visual>
@@ -112,14 +112,13 @@
         <geometry>
             <box size="${base_length} ${base_width} ${base_depth}"/>
         </geometry>
-        <!-- <origin xyz="0 0 ${off_floor+base_depth/2}" /> -->
         <origin xyz="0 0 0" />
       </collision>
     </link>
     <joint name="base_footprint_joint" type="fixed">
-      <parent link="base_link"/>
-      <child link="base_footprint"/>
-      <origin xyz="0 0 ${off_floor+base_depth/2}" />
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
+      <origin xyz="0 0 ${off_floor}" />
     </joint>
 
     <link name="inertial_link">
@@ -163,7 +162,6 @@
     <xacro:caster name="caster_back" reflect="-1"/>
 
     <!-- Gazebo Macro -->
-    <xacro:base_gazebo/>
   </xacro:macro>
 
 </robot>

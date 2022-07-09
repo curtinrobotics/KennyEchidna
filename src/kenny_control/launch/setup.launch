@@ -4,6 +4,7 @@
   <arg name="showSteeringPlugin" default="false"/>
   <arg name="useGazebo" default="false"/>
 
+  <!-- <param name="robot_description" command="$(find xacro)/xacro $(arg model)" /> -->
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 
 

@@ -16,22 +16,22 @@ reel:
     radius: 
     length: 0.09
 
-link1:
+arm:
     length: 0.73m
     width: 0.378
     depth: 0.232m
 
-link2:
+forearm:
     length: 0.64m
     width: 0.389m
     depth: 0.18m
 
-link3:
+hand:
     length: 0.788 m
     width: 0.06 m
     depth: 0.08m
 
-reel depth offset depth from bottom of link1: 0.162
+reel depth offset depth from bottom of arm: 0.162
 camera pan offset length: 0.12
 camera_pan:
     diameter: 0.19

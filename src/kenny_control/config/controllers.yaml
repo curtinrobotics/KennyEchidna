@@ -1,44 +1,60 @@
-# ROBOT:
-#   controller:
-#     state:
-#       type: joint_state_controller/JointStateController
-#       publish_rate: 50
-#     position:
-#       YOUR_ROBOT_JOINT:
-#         type: effort_controllers/JointPositionController
-#         joint: YOUR_ROBOT_JOINT
-#         pid: {p: 10.0, i: 0.0, d: 1.0}
-#       YOUR_OTHER_ROBOT_JOINT:
-#         type: effort_controllers/JointPositionController
-#         joint: YOUR_ROBOT_JOINT
-#         pid: {p: 5.0, i: 2.0, d: 1.0}
+controller_manager:
+  
+  ros__parameters:
+    update_rate: 10 #Hz
 
-kenny:
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
-  #------------- publish all joint states
-  joint_state_controller:
+    kenny_base_controller:
+      type: "diff_drive_controller/DiffDriveController"
+
+    shoulder_controller:
+      type: velocity_controllers/JointVelocityController
+
+    elbow_controller:
+      type: velocity_controllers/JointVelocityController
+
+    wrist_controller:
+      type: velocity_controllers/JointVelocityController
+
+    reel_joint_controller:
+      type: velocity_controllers/JointVelocityController
+
+    joint_camera_z_rotation_controller:
+      type: velocity_controllers/JointVelocityController
+      
+    joint_camera_y_rotation_controller:
+      type: velocity_controllers/JointVelocityController
+
+
+#------------- publish all joint states
+joint_state_controller:
+  ros__parameters:
     state: joint_state_controller/JointStateController
     publish_rate: 50
 
-  # ----------------- position controllers - drivebase
+# ----------------- velocity controllers - drivebase
 
-  drivebase_controller:
-    type: "diff_drive_controller/DiffDriveController"
-    left_wheel: ['joint_base_wheel_left']
-    right_wheel: ['joint_base_wheel_right']
-    publish_rate: 50
-    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
-    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
-    cmd_vel_timeout: 0.25
-    velocity_rolling_window_size: 2
-
-    base_frame_id: base_link
-
+kenny_base_controller:
+  ros__parameters:
+    left_wheel_names: ['joint_base_wheel_left']
+    right_wheel_names: ['joint_base_wheel_right']
     # Wheel separation and diameter. These are both optional.
     # diff_drive_controller will attempt to read either one or both from the
     # URDF if not specified as a parameter
     wheel_separation : 0.444
     wheel_radius : 0.2
+    
+    publish_rate: 50.0
+    
+    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    
+    cmd_vel_timeout: 0.25
+    velocity_rolling_window_size: 2
+
+    base_frame_id: base_link
 
     # Wheel separation and radius multipliers
     # wheel_separation_multiplier: 1.0 # default: 1.0
@@ -69,30 +85,41 @@ kenny:
         # max_jerk               : 2.5  # rad/s^3
 
 
-  # ----------------- position controllers - arms
-  joint_reel_link1_controller:
-    type: position_controllers/JointPositionController
-    joint: joint_reel_link1
+# ----------------- velocity controllers - arms
+shoulder_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
+    joint: shoulder
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint_link1_link2_controller:
-    type: position_controllers/JointPositionController
-    joint: joint_link1_link2
+elbow_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
+    joint: elbow
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint_link2_link3_controller:
-    type: position_controllers/JointPositionController
-    joint: joint_link2_link3
+wrist_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
+    joint: wrist
     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-# ----------------- position controllers - camera mechanism
+reel_joint_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
+    joint: reel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
 
-  joint_camera_z_rotation_controller:
-    type: position_controllers/JointPositionController
+# ----------------- velocity controllers - camera mechanism
+
+joint_camera_z_rotation_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
     joint: joint_camera_z_rotation
     pid: {p: 100.0, i: 0.01, d: 10.0}
-    
-  joint_camera_y_rotation_controller:
-    type: position_controllers/JointPositionController
+  
+joint_camera_y_rotation_controller:
+  ros__parameters:
+    type: velocity_controllers/JointVelocityController
     joint: joint_camera_y_rotation
     pid: {p: 100.0, i: 0.01, d: 10.0}

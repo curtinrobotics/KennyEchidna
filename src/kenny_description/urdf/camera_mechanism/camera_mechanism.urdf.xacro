@@ -2,7 +2,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.transmission.urdf"/>
-  <xacro:include filename="$(find kenny_description)/urdf/camera_mechanism/camera_mechanism.gazebo.urdf"/>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
@@ -40,11 +39,11 @@
       </inertial>
     </link>
     <joint name="joint_camera_z_rotation" type="revolute">
-      <!-- <parent link="arm_link1"/> -->
+      <!-- <parent link="arm"/> -->
       <parent link="${parent}"/>
       <child link="camera_pan"/>
       <axis xyz="0 0 1"/>
-      <!-- <origin xyz="${pan_arm_offset} 0 ${link1_depth/2}" rpy="0 0 0"/> -->
+      <!-- <origin xyz="${pan_arm_offset} 0 ${arm_depth/2}" rpy="0 0 0"/> -->
       <xacro:insert_block name="origin"/>
       <limit effort="1000.0" lower="${-pi/4}" upper="${pi/4}" velocity="0.5"/>
     </joint>
@@ -102,8 +101,6 @@
     <!-- call macros for defining transmission of camera joints -->
     <xacro:camera_joint name="camera_z_rotation"/>
     <xacro:camera_joint name="camera_y_rotation"/>
-
-    <xacro:camera_mechanism_gazebo/>
 
   </xacro:macro>
 

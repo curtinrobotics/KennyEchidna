@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(kenny_control)
+project(kenny_bringup)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -10,10 +10,6 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-find_package(ament_cmake REQUIRED)
-find_package(controller_manager REQUIRED)
-# find_package(joint_state_controller REQUIRED)
-find_package(robot_state_publisher REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -26,15 +22,9 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-################################################################################
-# Install
-################################################################################
 install(
-  DIRECTORY config launch include src
+  DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-################################################################################
-# Macro for ament package
-################################################################################
 ament_package()

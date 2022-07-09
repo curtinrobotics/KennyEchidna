@@ -5,7 +5,7 @@
   <xacro:macro name="kenny_arm_joint_transmission" params="name">
     <transmission name="tran_${name}">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="joint_${name}">
+      <joint name="${name}">
         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="motor_${name}"> 

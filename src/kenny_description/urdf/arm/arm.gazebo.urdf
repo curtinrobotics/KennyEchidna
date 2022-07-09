@@ -7,44 +7,40 @@
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link1">
+    <gazebo reference="arm">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link2">
+    <gazebo reference="forearm">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
-    <gazebo reference="arm_link3">
+    <gazebo reference="hand">
       <material>Gazebo/Yellow</material>
     </gazebo>
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ JOINTS -->
 
-    <gazebo refeence="joint_base_reel">
-      <!-- <dynamics damping="0.7"/> -->
+    <gazebo reference="reel_joint">
+      <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="joint_reel_link1">
-      <!-- <parent link="${parent}"/>
-      <child link="reel"/>
-      <axis xyz="0 0 1"/>
-      <xacro:insert_block name="origin" /> -->
+    <gazebo reference="shoulder">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
 
-    <gazebo reference="joint_link1_link2">
+    <gazebo reference="elbow">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
     </gazebo>
 
-    <gazebo reference="joint_link2_link3">
+    <gazebo reference="wrist">
       <dynamics damping="0.7"/>
       <mu1>0.2</mu1>
       <mu1>0.2</mu1>
