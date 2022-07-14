@@ -21,7 +21,7 @@ def generate_launch_description():
                                      description='Absolute path to rviz config file')
 
 
-    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf'
+    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf.xacro'
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',

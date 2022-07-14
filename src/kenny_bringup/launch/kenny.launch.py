@@ -11,22 +11,45 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    # Get URDF via xacro
+    # Get URDF via xacro, the full urdf as a string
     # robot_description_content = Command(
     #     [
     #         PathJoinSubstitution([FindExecutable(name="xacro")]),
-    #         " ", #kenny_description/urdf/kenny.urdf.xacro"
+    #         " ", 
     #         PathJoinSubstitution(
     #             [FindPackageShare("kenny_description"), "urdf", "kenny.urdf.xacro"]
     #         ),
     #     ]
     # )
     # robot_description = {"robot_description": robot_description_content}
-    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny_system.urdf.xacro'
-    robot_description = {'robot_description': ParameterValue(
-                            Command(['xacro ', str(path_to_urdf)]), value_type=str
-                        )
+    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf.xacro'
+    robot_description = {"robot_description": Command(['xacro ', str(path_to_urdf)])
         }
+
+    robot_description = {"robot_description": ParameterValue(
+                Command(['xacro ', str(path_to_urdf)]), value_type=str)}
+
+
+
+    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny.urdf.xacro'
+    robot_state_pub_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[{
+            'robot_description': ParameterValue(
+                Command(['xacro ', str(path_to_urdf)]), value_type=str
+            )
+        }]
+    )
+
+    # robot_description = {"robot_description": robot_description_content}
+
+    robot_state_pub_node = Node(
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        output="both",
+        parameters=[robot_description],
+    )
 
     robot_controllers = PathJoinSubstitution(
         [
@@ -52,12 +75,12 @@ def generate_launch_description():
             ("/arm_position_controller/commands", "/position_commands"),
         ],
     )
-    robot_state_pub_node = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        output="both",
-        parameters=[robot_description],
-    )
+    # robot_state_pub_node = Node(
+    #     package="robot_state_publisher",
+    #     executable="robot_state_publisher",
+    #     output="both",
+    #     parameters=[robot_description],
+    # )
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
