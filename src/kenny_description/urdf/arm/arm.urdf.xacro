@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny_arm">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kenny">
 <!-- <robot xmlns:xacro="http://www.ros.org/wiki/xacro"> -->
 
   <xacro:include filename="$(find kenny_description)/urdf/arm/arm.transmission.xacro"/>
@@ -25,30 +25,9 @@
 
   <!--  ++++++++++++++++++++++++++++++++++++++++ -->
 
-  <!-- <xacro:macro name="kenny_arm" params="parent"> params="parent *origin"> -->
   <xacro:macro name="kenny_arm" params="parent *origin">
 
-    <link name="dummy_reel">
-      <!-- <visual>
-        <geometry>
-          <cylinder length="${reel_length/4}" radius="${reel_rad}"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <material name="yellow"/>
-      </visual> -->
-
-      <!-- <collision>
-        <geometry>
-            <cylinder length="${reel_length}" radius="${reel_rad}"/>
-        </geometry>
-      </collision>
-
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="1"/>
-        <inertia ixx="0" ixy="0.0" ixz="0.0" iyy="0.2" iyz="0.0" izz="0"/>
-      </inertial> -->
-    </link>
+    <link name="dummy_reel"/>
     <joint name="dummy_reel_joint" type="revolute">
       <!-- <parent link="base_link"/> -->
       <parent link="${parent}"/>

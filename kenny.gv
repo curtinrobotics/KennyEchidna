@@ -1,0 +1,71 @@
+digraph G {
+node [shape=box];
+"base_footprint" [label="base_footprint"];
+"base_link" [label="base_link"];
+"dummy_reel" [label="dummy_reel"];
+"reel" [label="reel"];
+"arm" [label="arm"];
+"forearm" [label="forearm"];
+"hand" [label="hand"];
+"camera_pan" [label="camera_pan"];
+"camera_tilt_block" [label="camera_tilt_block"];
+"camera_tilt_holder" [label="camera_tilt_holder"];
+"dummy_reel" [label="dummy_reel"];
+"reel" [label="reel"];
+"arm" [label="arm"];
+"forearm" [label="forearm"];
+"hand" [label="hand"];
+"camera_pan" [label="camera_pan"];
+"camera_tilt_block" [label="camera_tilt_block"];
+"camera_tilt_holder" [label="camera_tilt_holder"];
+"inertial_link" [label="inertial_link"];
+"caster_back" [label="caster_back"];
+"caster_front" [label="caster_front"];
+"wheel_left" [label="wheel_left"];
+"wheel_right" [label="wheel_right"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_footprint" -> "base_footprint_joint" [label="xyz: 0 0 0.2 \nrpy: 0 -0 0"]
+"base_footprint_joint" -> "base_link"
+"base_link" -> "dummy_reel_joint" [label="xyz: 0 0 0.199 \nrpy: 0 -0 0"]
+"dummy_reel_joint" -> "dummy_reel"
+"dummy_reel" -> "reel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"reel_joint" -> "reel"
+"dummy_reel" -> "shoulder" [label="xyz: -0 0 0.161 \nrpy: 0 -0 0"]
+"shoulder" -> "arm"
+"arm" -> "elbow" [label="xyz: 0.365 0 0 \nrpy: 0 -0.65 0"]
+"elbow" -> "forearm"
+"forearm" -> "wrist" [label="xyz: 0 0 0.64 \nrpy: 0 -0 0"]
+"wrist" -> "hand"
+"arm" -> "joint_camera_z_rotation" [label="xyz: 0.12 0 -0.116 \nrpy: 0 -0 0"]
+"joint_camera_z_rotation" -> "camera_pan"
+"camera_pan" -> "camera_tilt_block_to_pan" [label="xyz: 0 0.095 0.0685 \nrpy: 0 -0 0"]
+"camera_tilt_block_to_pan" -> "camera_tilt_block"
+"camera_tilt_block" -> "joint_camera_y_rotation" [label="xyz: 0 -0.081 0.071 \nrpy: 0 -0 0"]
+"joint_camera_y_rotation" -> "camera_tilt_holder"
+"base_link" -> "dummy_reel_joint" [label="xyz: 0 0 0.199 \nrpy: 0 -0 0"]
+"dummy_reel_joint" -> "dummy_reel"
+"dummy_reel" -> "reel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"reel_joint" -> "reel"
+"dummy_reel" -> "shoulder" [label="xyz: -0 0 0.161 \nrpy: 0 -0 0"]
+"shoulder" -> "arm"
+"arm" -> "elbow" [label="xyz: 0.365 0 0 \nrpy: 0 -0.65 0"]
+"elbow" -> "forearm"
+"forearm" -> "wrist" [label="xyz: 0 0 0.64 \nrpy: 0 -0 0"]
+"wrist" -> "hand"
+"arm" -> "joint_camera_z_rotation" [label="xyz: 0.12 0 -0.116 \nrpy: 0 -0 0"]
+"joint_camera_z_rotation" -> "camera_pan"
+"camera_pan" -> "camera_tilt_block_to_pan" [label="xyz: 0 0.095 0.0685 \nrpy: 0 -0 0"]
+"camera_tilt_block_to_pan" -> "camera_tilt_block"
+"camera_tilt_block" -> "joint_camera_y_rotation" [label="xyz: 0 -0.081 0.071 \nrpy: 0 -0 0"]
+"joint_camera_y_rotation" -> "camera_tilt_holder"
+"base_link" -> "inertial_joint" [label="xyz: 0 0 0.354 \nrpy: 0 -0 0"]
+"inertial_joint" -> "inertial_link"
+"base_link" -> "joint_base_caster_back" [label="xyz: -0.542 0 -0.154 \nrpy: 0 -0 0"]
+"joint_base_caster_back" -> "caster_back"
+"base_link" -> "joint_base_caster_front" [label="xyz: 0.542 0 -0.154 \nrpy: 0 -0 0"]
+"joint_base_caster_front" -> "caster_front"
+"base_link" -> "joint_base_wheel_left" [label="xyz: 0 -0.282 0 \nrpy: 1.57 -0 0"]
+"joint_base_wheel_left" -> "wheel_left"
+"base_link" -> "joint_base_wheel_right" [label="xyz: 0 0.282 0 \nrpy: 1.57 -0 0"]
+"joint_base_wheel_right" -> "wheel_right"
+}

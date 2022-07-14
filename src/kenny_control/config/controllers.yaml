@@ -6,33 +6,39 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
+    arm_position_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    arm_trajectory_controller:
+      type: "joint_trajectory_controller/JointTrajectoryController"
+
     kenny_base_controller:
       type: "diff_drive_controller/DiffDriveController"
 
-    shoulder_controller:
-      type: velocity_controllers/JointVelocityController
+    # shoulder_controller:
+    #   type: velocity_controllers/JointVelocityController
 
-    elbow_controller:
-      type: velocity_controllers/JointVelocityController
+    # elbow_controller:
+    #   type: velocity_controllers/JointVelocityController
 
-    wrist_controller:
-      type: velocity_controllers/JointVelocityController
+    # wrist_controller:
+    #   type: velocity_controllers/JointVelocityController
 
-    reel_joint_controller:
-      type: velocity_controllers/JointVelocityController
+    # reel_joint_controller:
+    #   type: velocity_controllers/JointVelocityController
 
-    joint_camera_z_rotation_controller:
-      type: velocity_controllers/JointVelocityController
+    # joint_camera_z_rotation_controller:
+    #   type: velocity_controllers/JointVelocityController
       
-    joint_camera_y_rotation_controller:
-      type: velocity_controllers/JointVelocityController
+    # joint_camera_y_rotation_controller:
+    #   type: velocity_controllers/JointVelocityController
 
 
-#------------- publish all joint states
-joint_state_controller:
-  ros__parameters:
-    state: joint_state_controller/JointStateController
-    publish_rate: 50
+# #------------- publish all joint states
+# joint_state_controller:
+#   ros__parameters:
+#     state: joint_state_controller/JointStateController
+#     publish_rate: 50
 
 # ----------------- velocity controllers - drivebase
 
@@ -84,42 +90,73 @@ kenny_base_controller:
         # has_jerk_limits        : true
         # max_jerk               : 2.5  # rad/s^3
 
+arm_position_controller:
+  ros__parameters:
+    joints:
+      - shoulder
+      - elbow
+      - wrist
+    interface_name: position
+
+
+arm_trajectory_controller:
+  ros__parameters:
+    joints:
+      - shoulder
+      - elbow
+      - wrist
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+
+    state_publish_rate: 200.0 # Defaults to 50
+    action_monitor_rate: 20.0 # Defaults to 20
+
+    allow_partial_joints_goal: false # Defaults to false
+    open_loop_control: true
+    allow_integration_in_goal_trajectories: true
+    constraints:
+      stopped_velocity_tolerance: 0.01 # Defaults to 0.01
+      goal_time: 0.0 # Defaults to 0.0 (start immediately)
 
 # ----------------- velocity controllers - arms
-shoulder_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: shoulder
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# shoulder_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: shoulder
+#     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-elbow_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: elbow
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# elbow_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: elbow
+#     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-wrist_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: wrist
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# wrist_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: wrist
+#     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-reel_joint_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: reel_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# reel_joint_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: reel_joint
+#     pid: {p: 100.0, i: 0.01, d: 10.0}
 
-# ----------------- velocity controllers - camera mechanism
+# # ----------------- velocity controllers - camera mechanism
 
-joint_camera_z_rotation_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: joint_camera_z_rotation
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# joint_camera_z_rotation_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: joint_camera_z_rotation
+#     pid: {p: 100.0, i: 0.01, d: 10.0}
   
-joint_camera_y_rotation_controller:
-  ros__parameters:
-    type: velocity_controllers/JointVelocityController
-    joint: joint_camera_y_rotation
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+# joint_camera_y_rotation_controller:
+#   ros__parameters:
+#     type: velocity_controllers/JointVelocityController
+#     joint: joint_camera_y_rotation
+#     pid: {p: 100.0, i: 0.01, d: 10.0}

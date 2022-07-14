@@ -12,7 +12,6 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     # Get URDF via xacro
-    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny_system.urdf.xacro'
     # robot_description_content = Command(
     #     [
     #         PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -22,8 +21,8 @@ def generate_launch_description():
     #         ),
     #     ]
     # )
-    # print(robot_description_content)
     # robot_description = {"robot_description": robot_description_content}
+    path_to_urdf = get_package_share_path('kenny_description') / 'urdf' / 'kenny_system.urdf.xacro'
     robot_description = {'robot_description': ParameterValue(
                             Command(['xacro ', str(path_to_urdf)]), value_type=str
                         )
@@ -37,7 +36,7 @@ def generate_launch_description():
         ]
     )
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("kenny_description"), "config", "kenny.rviz"]
+        [FindPackageShare("kenny_description"), "config", "urdf.rviz"]
     )
 
     control_node = Node(
@@ -48,15 +47,16 @@ def generate_launch_description():
             "stdout": "screen",
             "stderr": "screen",
         },
+        remappings=[
+            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+            ("/arm_position_controller/commands", "/position_commands"),
+        ],
     )
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
-        remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
-        ],
     )
     rviz_node = Node(
         package="rviz2",
@@ -72,10 +72,16 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    robot_controller_spawner = Node(
+    base_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["kenny_base_controller", "-c", "/controller_manager"],
+    )
+
+    arm_position_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["arm_position_controller", "-c", "/controller_manager"],
     )
 
     # Delay rviz start after `joint_state_broadcaster`
@@ -90,7 +96,7 @@ def generate_launch_description():
     delay_robot_controller_spawner_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
-            on_exit=[robot_controller_spawner],
+            on_exit=[base_controller_spawner, arm_position_controller_spawner],
         )
     )
 
